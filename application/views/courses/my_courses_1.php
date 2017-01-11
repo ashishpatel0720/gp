@@ -45,7 +45,7 @@ $(document).ready(function() {
                                 <td class="center"> 06-Jan-2017 </td>
                                 <td>
                                   <div class="action_btns">
-                                    <a href="#" class="btn btn-outline btn-primary btn-sm"><i class="fa fa-link"></i> View </a>
+                                    <a href="/courses" class="btn btn-outline btn-primary btn-sm"><i class="fa fa-link"></i> View </a>
                                     <a href="#" id=""  class="btn btn-outline btn-danger btn-sm"><i class="fa fa-edit"></i> Edit </a>
                                  <!-- <a href="javascript:;" class="btn btn-outline btn-circle btn-sm red deletebtn"><i class="fa fa-edit"></i> Delete </a> -->
                                  </div>
