@@ -351,5 +351,11 @@ class User extends CI_Controller {
     redirect('/','refresh');
   }
 
+  public function account_settings(){
+    $this->load->view('site/header');
+    $this->load->view('user/account_settings');
+    $this->load->view('site/footer');
+  }
+
 
 }
