@@ -8,20 +8,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Style /static/site/css -->
-    <link rel="stylesheet" type="text/css" href="/static/site/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/static/site/css/style.css">
-    <script type="text/javascript" src="/static/site/js/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/site/datatables/media/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/site/datatables/extensions/Buttons/css/buttons.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/site/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/site/css/style.css">
+    <script type="text/javascript" src="<?php echo $this->config->item('site_url'); ?>static/site/js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/site/datatables/media/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/site/datatables/extensions/Buttons/css/buttons.bootstrap.min.css">
 
 
     <?php if(isset($reader) && !empty($reader)): ?>
     <!-- CSS : implied media="all" -->
-    <link rel="stylesheet" href="/static/reader/css/reader_style.css">
-    <link rel="stylesheet" href="/static/reader/css/wow_book.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="/static/reader/css/preview.css">
+    <link rel="stylesheet" href="<?php echo $this->config->item('site_url'); ?>static/reader/css/reader_style.css">
+    <link rel="stylesheet" href="<?php echo $this->config->item('site_url'); ?>static/reader/css/wow_book.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/reader/css/preview.css">
 
-    <link rel="stylesheet" media="handheld" href="/static/reader/css/handheld.css?v=2">
+    <link rel="stylesheet" media="handheld" href="<?php echo $this->config->item('site_url'); ?>static/reader/css/handheld.css?v=2">
 
     <?php endif; ?>
 </head>

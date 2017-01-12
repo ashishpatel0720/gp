@@ -382,6 +382,8 @@ $config['user_roles']  = array('USER'=>1,'INSTRUCTOR'=>2,'PUBLISHER'=>3,'ADVERTI
 
 $config['hash_lengh_session'] = 25;
 
+$config['site_url']='/';
+
 // website meta data
 
 $config['routes'] = array('base' => array('controller'=>'base','routes'=>array('home'=>'index','about'=>'about','contact'=>'contact')),
