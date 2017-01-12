@@ -12,3 +12,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /static/book_pdf
 /static/book_html
 /static/book_images
+/application/config/database.php
