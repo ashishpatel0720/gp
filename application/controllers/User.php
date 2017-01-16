@@ -352,6 +352,10 @@ class User extends CI_Controller {
   }
 
   public function account_settings(){
+    
+	if(!$this->loggedIn) 
+	  	 redirect('/user/login',true);
+		 
     $this->load->view('site/header');
     $this->load->view('user/account_settings');
     $this->load->view('site/footer');
