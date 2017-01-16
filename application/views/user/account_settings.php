@@ -688,12 +688,22 @@
           });
 
     </script>
+    
+    <?php
+//    $flag=false;
+//      if(isset($_POST)){
+//          $this->load->model("usermodel");
+//          if($this->db->replace($_POST))
+//              $flag=true;
+//      }
+//    ?>
     <main class="site-main">
       <div id="wrapper">
         <?php $this->view('site/sidebar'); ?>
             <!-- Page Content -->
       <div id="page-content-wrapper">
-
+          <?php # if($flag) echo "SUCESS";else echo "FAILUREL"?>
+          <br>
         <div class="row profile-account">
             <div class="col-md-3">
                 <ul class="ver-inline-menu tabbable margin-bottom-10">
@@ -719,29 +729,65 @@
             <div class="col-md-9">
                 <div class="tab-content">
                     <div id="tab_1-1" class="tab-pane active">
-                        <form role="form" action="#">
+                        <form role="form" action="/user/accout_settings">
                             <div class="form-group">
                                 <label class="control-label">First Name</label>
-                                <input type="text" placeholder="John" class="form-control"> </div>
+                                <input type="text" placeholder="John" class="form-control" value="
+                               <?php   $name=explode(' ',$this->session->userdata('USER_NAME'));
+                                        echo trim($name[0]);
+                                        // echo implode("#",$name);
+                               ?>">
+                               </div>
                             <div class="form-group">
+                                
                                 <label class="control-label">Last Name</label>
-                                <input type="text" placeholder="Doe" class="form-control"> </div>
+                                <input type="text" placeholder="Doe" class="form-control" value="
+                              <?php   $name=explode(' ',$this->session->userdata('USER_NAME'));
+                                       echo trim($name[2]);   
+                               ?>"> </div>
                             <div class="form-group">
                                 <label class="control-label">Mobile Number</label>
-                                <input type="text" placeholder="+1 646 580 DEMO (6284)" class="form-control"> </div>
+                                <input type="text" placeholder="+1 646 580 DEMO (6284)" class="form-control"value="
+                               <?php  echo $this->session->userdata('USER_PHONE');
+                               ?>"> </div>
                             <div class="form-group">
                                 <label class="control-label">Interests</label>
-                                <input type="text" placeholder="Design, Web etc." class="form-control"> </div>
+                                <input type="text" placeholder="Design, Web etc." class="form-control" value="
+                               <?php  echo $this->session->userdata('USER_INTERESTS');
+                               ?>">
+                            </div>
                             <div class="form-group">
                                 <label class="control-label">Occupation</label>
-                                <input type="text" placeholder="Web Developer" class="form-control"> </div>
+                                <input type="text" placeholder="Web Developer" class="form-control"value="
+                               <?php  echo $this->session->userdata('USER_OCCUPATION');
+                               ?>"> </div>
                             <div class="form-group">
                                 <label class="control-label">About</label>
-                                <textarea class="form-control" rows="3" placeholder="We are KeenThemes!!!"></textarea>
+                                <textarea class="form-control" rows="3" placeholder="We are KeenThemes!!!">
+                                    <?php $this->session->userdata('USER_ABOUT');?>
+                                </textarea>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Website</label>
-                                <input type="text" placeholder="http://www.mywebsite.com" class="form-control"> </div>
+                                <input type="text" placeholder="http://www.mywebsite.com" class="form-control"
+                                    value="
+                               <?php  echo $this->session->userdata('USER_WEBSITE');
+                               ?>">  
+                                       
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Twitter</label>
+                                <input type="text" placeholder="http://www.twitter.com/myid" class="form-control"value="
+                               <?php  echo $this->session->userdata('USER_TWITTER_ID');
+                               ?>"> 
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Facebook</label>
+                                <input type="text" placeholder="http://www.facebook.com/myid" class="form-control"value="
+                                 <?php  echo $this->session->userdata('USER_PHONE');
+                               ?>"> 
+                            </div>
+                          
                             <div class="margiv-top-10">
                                 <a href="javascript:;" class="btn green"> Save Changes </a>
                                 <a href="javascript:;" class="btn default"> Cancel </a>
