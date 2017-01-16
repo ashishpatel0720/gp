@@ -15,7 +15,7 @@
  	public function __construct()
  	{
  		parent::__construct();
- 	}a
+ 	}
 
  	public function index()
  	{

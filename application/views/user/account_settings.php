@@ -712,7 +712,7 @@
                     </li>
                     <li>
                         <a data-toggle="tab" href="#tab_4-4">
-                            <i class="fa fa-eye"></i> Privacity Settings </a>
+                            <i class="fa fa-eye"></i> Privacy Settings </a>
                     </li>
                 </ul>
             </div>
@@ -740,7 +740,7 @@
                                 <textarea class="form-control" rows="3" placeholder="We are KeenThemes!!!"></textarea>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Website Url</label>
+                                <label class="control-label">Website</label>
                                 <input type="text" placeholder="http://www.mywebsite.com" class="form-control"> </div>
                             <div class="margiv-top-10">
                                 <a href="javascript:;" class="btn green"> Save Changes </a>

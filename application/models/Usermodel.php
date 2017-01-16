@@ -35,6 +35,13 @@ class UserModel extends CI_Model {
                     'USER_USERNAME' => $rows->user_username,
                     'USER_ROLES' => $rows->user_roles,
                     'USER_VERIFIED' => $rows->user_verified,
+                    /**
+                     * following are added @ashish_patel for future use( in view dashboard2 )
+                     * USER_TWITTER_ID 
+                     * USER_FACEBOOK_ID
+                     * USER_WEBSITE
+                     * populate if a user have those
+                     */
                 );
 
                 }
@@ -62,6 +69,11 @@ class UserModel extends CI_Model {
     	if($this->db->insert('courses', $data))
     		return $this->db->insert_id();
     		else return false;
+    }
+     public function saveAccountSettings($data){
+        if($this->db->insert('user_information', $data))
+            return $this->db->insert_id();
+            else return false;
     }
 
 
