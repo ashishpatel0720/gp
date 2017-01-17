@@ -697,6 +697,7 @@
 //              $flag=true;
 //      }
 //    ?>
+    
     <main class="site-main">
       <div id="wrapper">
         <?php $this->view('site/sidebar'); ?>
