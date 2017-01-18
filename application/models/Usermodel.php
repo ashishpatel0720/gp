@@ -41,6 +41,7 @@ class UserModel extends CI_Model {
                      * USER_FACEBOOK_ID
                      * USER_WEBSITE
                      * USER_INTERESTS
+                     * USER_PHONE
                      * populate if a user have those
                      */
                 );
