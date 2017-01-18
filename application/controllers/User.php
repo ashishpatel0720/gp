@@ -34,7 +34,7 @@ class User extends CI_Controller {
 		$this->header_data['categories'] = $this->categories;
 
 
-		
+
 		$this->load->library('form_validation');
 		if(isset($_SESSION['USER_ID']) && !empty($_SESSION['USER_ID'])){
 			$this->loggedIn = true;
@@ -51,22 +51,19 @@ class User extends CI_Controller {
 		//   $this->load->view('site/footer');
 		//   }
 		// }
-        
-        /**
-         * this function loads dashboard which shows all user information
-            which can be edited.
-         */
+
+
 	public function dashboard()
 	{
-            
+
 		if(!$this->loggedIn)
 			redirect('/user/login');
-              	          
+
                 $this->load->view('site/header',$this->header_data);
-	 	//$this->load->view('user/dashboard2');
-           $this->load->view('form_demo');
+ 	 	$this->load->view('user/dashboard2');
+      
 		$this->load->view('site/footer');
-      } 
+      }
 
 
 	private function user_password_hash($password)
@@ -363,8 +360,8 @@ public function logout(){
 }
 
 public function account_settings(){
-	
-	if(!$this->loggedIn) 
+
+	if(!$this->loggedIn)
 	 redirect('/user/login',true);
 
 
