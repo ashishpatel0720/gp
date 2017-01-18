@@ -656,6 +656,79 @@
         width: 100%;
         float: left
     }
+
+
+.ver-inline-menu {
+    padding: 0;
+    margin: 0;
+    list-style: none
+}
+
+.ver-inline-menu li {
+    position: relative;
+    margin-bottom: 1px
+}
+
+.ver-inline-menu li i {
+    width: 37px;
+    height: 37px;
+    display: inline-block;
+    color: #b9cbd5;
+    font-size: 15px;
+    padding: 12px 10px 10px 8px;
+    margin: 0 8px 0 0;
+    text-align: center;
+    background: #e0eaf0!important
+}
+
+.ver-inline-menu li a {
+    font-size: 14px;
+    font-weight: 300;
+    color: #557386;
+    display: block;
+    background: #f0f6fa;
+    border-left: solid 2px #c4d5df
+}
+
+.ver-inline-menu li:hover a {
+    background: #e0eaf0;
+    text-decoration: none
+}
+
+.ver-inline-menu li:hover i {
+    color: #fff;
+    background: #c4d5df!important
+}
+
+.ver-inline-menu li.active a {
+    border-left: solid 2px #0c91e5
+}
+
+.ver-inline-menu li.active i {
+    background: #0c91e5!important
+}
+
+.ver-inline-menu li.active a,.ver-inline-menu li.active i {
+    color: #fff;
+    background: #169ef4;
+    text-decoration: none
+}
+
+.ver-inline-menu li.active a,.ver-inline-menu li:hover a {
+    font-size: 14px
+}
+
+.ver-inline-menu li.active:after {
+    content: '';
+    display: inline-block;
+    border-bottom: 6px solid transparent;
+    border-top: 6px solid transparent;
+    border-left: 6px solid #169ef4;
+    position: absolute;
+    top: 12px;
+    right: -5px
+}
+
 </style>
 
 <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-2.2.4/pdfmake-0.1.18/dt-1.10.13/b-1.2.4/b-colvis-1.2.4/b-html5-1.2.4/b-print-1.2.4/fc-3.2.2/fh-3.1.2/kt-2.2.0/r-2.1.0/sc-1.4.2/se-1.2.0/datatables.min.css"/> -->
@@ -696,7 +769,7 @@
 //          if($this->db->replace($_POST))
 //              $flag=true;
 //      }
-//    ?>
+//?>
 
 <main class="site-main">
     <div id="wrapper">
@@ -730,195 +803,45 @@
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div id="tab_1-1" class="tab-pane active">
-                            <!--  <form role="form" action="/user/accout_settings">
+                     <form role="form" class action="/user/accout_settings">
                             <div class="form-group">
                                 <label class="control-label">First Name</label>
-                                <input type="text" placeholder="John" class="form-control" value="
-                               <?php /*  $name=explode(' ',$this->session->userdata('USER_NAME'));
+                                <input type="text" placeholder="John" class="form-control" value="<?php /*  $name=explode(' ',$this->session->userdata('USER_NAME'));
                                         echo trim($name[0]);
                                         // echo implode("#",$name);
                                */?>">
                                </div>
                             <div class="form-group">
-                                
+
                                 <label class="control-label">Last Name</label>
-                                <input type="text" placeholder="Doe" class="form-control" value="
-                              <?php /*  $name=explode(' ',$this->session->userdata('USER_NAME'));
-                                       echo trim($name[2]);   
+                                <input type="text" placeholder="Doe" class="form-control" value="<?php /*  $name=explode(' ',$this->session->userdata('USER_NAME'));
+                                       echo trim($name[2]);
                                */?>"> </div>
                             <div class="form-group">
                                 <label class="control-label">Mobile Number</label>
-                                <input type="text" placeholder="+1 646 580 DEMO (6284)" class="form-control"value="
-                               <?php /* echo $this->session->userdata('USER_PHONE');
+                                <input type="text" placeholder="+1 646 580 DEMO (6284)" class="form-control"value="<?php /* echo $this->session->userdata('USER_PHONE');
                                */?>"> </div>
                             <div class="form-group">
                                 <label class="control-label">Interests</label>
-                                <input type="text" placeholder="Design, Web etc." class="form-control" value="
-                               <?php /* echo $this->session->userdata('USER_INTERESTS');
+                                <input type="text" placeholder="Design, Web etc." class="form-control" value="<?php /* echo $this->session->userdata('USER_INTERESTS');
                                */?>">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Occupation</label>
-                                <input type="text" placeholder="Web Developer" class="form-control"value="
-                               <?php /* echo $this->session->userdata('USER_OCCUPATION');
-                               */?>"> </div>
-                            <div class="form-group">
-                                <label class="control-label">About</label>
-                                <textarea class="form-control" rows="3" placeholder="We are KeenThemes!!!">
-                                    <?php /*$this->session->userdata('USER_ABOUT');*/?>
-                                </textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Website</label>
-                                <input type="text" placeholder="http://www.mywebsite.com" class="form-control"
-                                    value="
-                               <?php /* echo $this->session->userdata('USER_WEBSITE');
-                               */?>">
-                                       
-                            </div>
+                           </div>
                             <div class="form-group">
                                 <label class="control-label">Twitter</label>
-                                <input type="text" placeholder="http://www.twitter.com/myid" class="form-control"value="
-                               <?php /* echo $this->session->userdata('USER_TWITTER_ID');
+                                <input type="text" placeholder="http://www.twitter.com/myid" class="form-control"value="<?php /* echo $this->session->userdata('USER_TWITTER_ID');
                                */?>">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Facebook</label>
-                                <input type="text" placeholder="http://www.facebook.com/myid" class="form-control"value="
-                                 <?php /* echo $this->session->userdata('USER_PHONE');
+                                <input type="text" placeholder="http://www.facebook.com/myid" class="form-control"value="<?php /* echo $this->session->userdata('USER_PHONE');
                                */?>">
                             </div>
-                          
+
                             <div class="margiv-top-10">
-                                <a href="javascript:;" class="btn green"> Save Changes </a>
-                                <a href="javascript:;" class="btn default"> Cancel </a>
+                                <a href="javascript:;" class="btn btn-primary"> Save Changes </a>
+                                <a href="javascript:;" class="btn btn-default"> Cancel </a>
                             </div>
-                        </form>-->
-                            <form action="#" id="form_sample_1" class="form-horizontal" novalidate="novalidate" _lpchecked="1">
-                                <div class="form-body">
-                                    <div class="alert alert-danger display-hide">
-                                        <button class="close" data-close="alert"></button> You have some form errors. Please check below. </div>
-                                    <div class="alert alert-success display-hide">
-                                        <button class="close" data-close="alert"></button> Your form validation is successful! </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Name
-                                            <span class="required" style="color:darkred" aria-required="true"> * </span>
-                                        </label>
-                                        <div class="col-md-4">
-
-                                            <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-user"></i>
-                                                        </span>
-
-                                                <input type="text" name="name" data-required="1" class="form-control"
-                                                       style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;);
-                   cursor: pointer;"  value="<?php  echo $this->session->userdata('USER_NAME') ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Email
-                                            <span class="required" style ="color:darkred" aria-required="true"> * </span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-envelope"></i>
-                                                        </span>
-                                                <input type="text" class="form-control" name="input_group" placeholder="Email Address"
-                                                       value="<?php  echo $this->session->userdata('USER_MAIL') ?>">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Website
-                                            <span class="required" aria-required="false">  </span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            <div class="input-group">
-
-                     <span class="input-group-addon">
-                                                            <i class="fa fa-internet-explorer"></i>
-                                                        </span>
-
-                                                <input name="url" type="text" class="form-control"
-                                                       value="<?php  echo $this->session->userdata('USER_WEBSITE') ?>">
-                                            </div>
-                                            <span class="help-block"> e.g: http://www.demo.com or http://demo.com </span>
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Phone Number
-                                            <span class="required" aria-required="true"> * </span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            <div class="input-group">
-
-                     <span class="input-group-addon">
-                                                            <i class="fa fa-phone"></i>
-                                                        </span>
-
-                                                <input name="number" type="text" class="form-control"
-                                                       value="<?php  echo $this->session->userdata('USER_PHONE') ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Occupation&nbsp;&nbsp;</label>
-                                        <div class="col-md-4">
-                                            <input name="occupation" type="text" class="form-control">
-                                            <span class="help-block"> optional field </span>
-                                        </div>
-                                    </div>
-                                    <!-- IF WANTED TO HAVE A DROP DOWNLIST
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Select
-                                            <span class="required" aria-required="true"> * </span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            <select class="form-control" name="select">
-                                                <option value="">Select...</option>
-                                                <option value="Category 1">Category 1</option>
-                                                <option value="Category 2">Category 2</option>
-                                                <option value="Category 2">Category 2</option>
-                                                <option value="Category 3">Category 5</option>
-                                                <option value="Category 4">Category 4</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    -->
-                                    <!--<div class="form-group">
-                                           A LIST SELECT
-                                        <label class="control-label col-md-3">Multi Select
-                                            <span class="required" aria-required="true"> * </span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            <select class="form-control" name="select_multi" multiple="" aria-required="true" aria-invalid="false" aria-describedby="select_multi-error">
-                                                <option value="Category 1">Category 1</option>
-                                                <option value="Category 2">Category 2</option>
-                                                <option value="Category 3">Category 3</option>
-                                                <option value="Category 4">Category 4</option>
-                                                <option value="Category 5">Category 5</option>
-                                            </select>
-                                            <span class="help-block"> select max 3 options, min 1 option </span>
-                                        </div>
-                                    </div>
-                                    -->
-
-                                </div>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-offset-3 col-md-9">
-
-                                            <button type="submit" class="btn green">Submit</button>
-                                            <button type="button" class="btn grey-salsa btn-outline">Cancel</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                        </form>
                         </div>
                         <div id="tab_2-2" class="tab-pane">
                             <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
@@ -949,66 +872,26 @@
                             </form>
                         </div>
                         <div id="tab_3-3" class="tab-pane">
-                            <form action="#">
-                                <!--current password-->
+                          <div class="container">
+                            <div class="row">
+
+                              <form action="#">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Current Password
-                                        <span class="required" style="color:darkred" aria-required="true">*</span>
-                                    </label>
-                                    <div class="col-md-3">
-
-                                        <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-user-secret"></i>
-                                                        </span>
-
-                                            <input type="text" name="name" data-required="1" class="form-control"
-                                                   style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;);
-                   cursor: pointer;"  placeholder="current password">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--new password-->
+                                    <label class="control-label">Current Password</label>
+                                    <input type="password" class="form-control"> </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Current Password
-                                        <span class="required" style="color:darkred" aria-required="true">*</span>
-                                    </label>
-                                    <div class="col-md-3">
-
-                                        <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-user-secret"></i>
-                                                        </span>
-
-                                            <input type="text" name="name" data-required="1" class="form-control"
-                                                   style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;);
-                   cursor: pointer;"  placeholder="current password">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--retype new passwordk-->
+                                    <label class="control-label">New Password</label>
+                                    <input type="password" class="form-control"> </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Current Password
-                                        <span class="required" style="color:darkred" aria-required="true">*</span>
-                                    </label>
-                                    <div class="col-md-3">
-
-                                        <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-user-secret"></i>
-                                                        </span>
-
-                                            <input type="text" name="name" data-required="1" class="form-control"
-                                                   style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;);
-                   cursor: pointer;"  placeholder="current password">
-                                        </div>
-                                    </div>
-                                </div>
+                                    <label class="control-label">Re-type New Password</label>
+                                    <input type="password" class="form-control"> </div>
                                 <div class="margin-top-10">
-                                    <a href="javascript:;" class="btn green"> Change Password </a>
-                                    <a href="javascript:;" class="btn default"> Cancel </a>
+                                    <a href="javascript:;" class="btn btn-primary"> Change Password </a>
+                                    <a href="javascript:;" class="btn btn-danger"> Cancel </a>
                                 </div>
-                            </form>
+                              </form>
+                            </div>
+                          </div>
                         </div>
                         <div id="tab_4-4" class="tab-pane">
                             <form action="#">
@@ -1076,8 +959,8 @@
                                     </tbody></table>
                                 <!--end profile-settings-->
                                 <div class="margin-top-10">
-                                    <a href="javascript:;" class="btn green"> Save Changes </a>
-                                    <a href="javascript:;" class="btn default"> Cancel </a>
+                                    <a href="javascript:;" class="btn btn-primary"> Save Changes </a>
+                                    <a href="javascript:;" class="btn btn-default"> Cancel </a>
                                 </div>
                             </form>
                         </div>
