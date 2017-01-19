@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - grabpustak@localhost" uuid="f9b48ab4-8c00-4388-92cb-ed1362f5e770">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>grabpustak.*</schema-pattern>
+      <default-schemas>grabpustak.*</default-schemas>
+    </data-source>
+  </component>
+</project>
