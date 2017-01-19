@@ -63,8 +63,8 @@ class User extends CI_Controller {
 			redirect('/user/login');
               	          
                 $this->load->view('site/header',$this->header_data);
-	 	//$this->load->view('user/dashboard2');
-           $this->load->view('form_demo');
+	 	$this->load->view('user/dashboard2');
+        //   $this->load->view('form_demo');
 		$this->load->view('site/footer');
       } 
 
