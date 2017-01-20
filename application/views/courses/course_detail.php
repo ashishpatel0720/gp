@@ -21,7 +21,9 @@ $(document).ready(function() {
          "paging":         false,
           "dom": '<"toolbar_study toolbar">frtip',
      });
-      $("div.toolbar_study").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#study_modal">Add new syllabus</button>');
+
+      // $("div.toolbar_study").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#study_modal">Add new syllabus</button>');
+      $("div.toolbar_study").html(`<?php echo anchor_popup($upload_url, 'Upload new material', array('class'=>"btn btn-danger"));?>`);
 
 
 });

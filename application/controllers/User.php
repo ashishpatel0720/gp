@@ -12,8 +12,7 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class User extends CI_Controller {
-
-	 public $header_data=[];
+ 	 public $header_data=[];
 	 private $loggedIn = false;
 	 private $userPermissions = [];
 	 public function __construct()
@@ -32,8 +31,6 @@ class User extends CI_Controller {
 			$this->categories[$value['main_category_title']][$value['sub_category_title']][] = $value['subject_title'];
 		}
 		$this->header_data['categories'] = $this->categories;
-
-
 
 		$this->load->library('form_validation');
 		if(isset($_SESSION['USER_ID']) && !empty($_SESSION['USER_ID'])){
@@ -59,9 +56,9 @@ class User extends CI_Controller {
 		if(!$this->loggedIn)
 			redirect('/user/login');
 
-                $this->load->view('site/header',$this->header_data);
+    $this->load->view('site/header',$this->header_data);
  	 	$this->load->view('user/dashboard2');
-      
+
 		$this->load->view('site/footer');
       }
 
