@@ -732,23 +732,23 @@
               <div>
                 <div class="margin-top-20 profile-desc-link">
                   <i class="fa fa-globe"></i>
-                  <a href="http://<?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->user_data('USER_WEBSITE')?>">
-                    <?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->user_data('USER_WEBSITE');
+                  <a href="http://<?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->userdata('USER_WEBSITE')?>">
+                    <?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->userdata('USER_WEBSITE');
                     else echo "<a href='/user/account_settings'>Add Now</a>"?>
                   </a>
                 </div>
                 <div class="margin-top-20 profile-desc-link">
                   <i class="fa fa-twitter"></i>
-                  <a href="http://twitter.com/<?php if($this->session->has_userdata('USER_TWITTER_ID'))echo $this->session->user_data('USER_WEBSITE')?>">
-                    <?php if($this->session->has_userdata('USER_'))echo "@".$this->session->user_data('USER_WEBSITE');
+                  <a href="http://twitter.com/<?php if($this->session->has_userdata('USER_TWITTER_ID'))echo $this->session->userdata('USER_WEBSITE')?>">
+                    <?php if($this->session->has_userdata('USER_'))echo "@".$this->session->userdata('USER_WEBSITE');
                     else echo "<a href='/user/account_settings'>Add Now</a>";
                     ?>
                   </a>
                 </div>
                 <div class="margin-top-20 profile-desc-link">
                   <i class="fa fa-facebook"></i>
-                  <a href="http://facebook.com/<?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->user_data('USER_WEBSITE')?>">
-                    <?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->user_data('USER_WEBSITE');
+                  <a href="http://facebook.com/<?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->userdata('USER_WEBSITE')?>">
+                    <?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->userdata('USER_WEBSITE');
                     else echo "<a href='/user/account_settings'>Add Now</a>"?>
                   </a>
                 </div>
