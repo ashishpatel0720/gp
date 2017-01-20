@@ -806,11 +806,7 @@
                             else
                                    echo "<p>Your data update successfully!!</p>";
                             ?>
-<<<<<<< HEAD
                             <form role="form" method="post" action="/user/account_settings">
-=======
-                            <form role="form" method="post" action="/user/update_info">
->>>>>>> origin/ashish
                                 <div class="form-group">
                                     <label class="control-label">First Name</label>
                                     <input type="text" placeholder="John" class="form-control" readonly value=

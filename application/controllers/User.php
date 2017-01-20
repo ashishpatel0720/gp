@@ -153,7 +153,6 @@ class User extends CI_Controller {
 		                 $this->load->view('/user/account_settings',$d);
                                  $this->load->view('/site/footer');
                           }
-<<<<<<< HEAD
         }else
         {
 		$this->load->view('site/header');
@@ -167,14 +166,6 @@ class User extends CI_Controller {
 	}
 
 
-=======
-        }
-	public function update_password(){
-
-	}
-
-
->>>>>>> origin/ashish
 
 	public function signup(){
 		if(isset($_POST)){
@@ -417,34 +408,12 @@ class User extends CI_Controller {
 				// $this->load->view('upload_success', $data);
 			}
 		}
-<<<<<<< HEAD
 
 	}
 	public function logout(){
 		$this->session->sess_destroy();
 		redirect('/','refresh');
 	}
-
-
-=======
-
-	}
-	public function logout(){
-		$this->session->sess_destroy();
-		redirect('/','refresh');
-	}
-
-	public function account_settings(){
-
-		if(!$this->loggedIn)
-			redirect('/user/login',true);
-
-
-		$this->load->view('site/header');
-		$this->load->view('user/account_settings');
-		$this->load->view('site/footer');
-	}
->>>>>>> origin/ashish
 
 
 }
