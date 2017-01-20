@@ -24,13 +24,8 @@ class Base extends CI_Controller
         $this->load->model('bookmodel');
 
         $this->load->library('form_validation');
-        $this->categories= [];
-        // $this->output->cache(3);
-        $books = $this->bookmodel->fetchCategories();
-        foreach ($books as $key => $value) {
-            $this->categories[$value['main_category_title']][$value['sub_category_title']][] = $value['subject_title'];
-        }
-        $this->header_data['categories'] = $this->categories;
+
+       $this->header_data['categories'] = load_categories();
     }
     public function index()
     {

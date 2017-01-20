@@ -20,3 +20,4 @@ application/config/database.php
 /static/book_pdfs/*
 
 *.pdf
+*.tar.gz
