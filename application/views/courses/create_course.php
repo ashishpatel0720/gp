@@ -6,7 +6,10 @@
 <!-- MAIN -->
 		<main class="site-main">
             <div class="container">
+
+                
                 <div class="block-form">
+
                     <!-- block Create an course -->
                     <div class="block-form-course centered center-block">
                         <div class="block-content col-sm-12 col-md-8 col-lg-8">
@@ -29,7 +32,7 @@
                              </div>
 
                             <button type="submit" class="btn btn-inline">Create Now</button>
-                            <a href="/courses" type="cancel" class="btn btn-inline">Cancel</a>
+                            <button type="cancel" class="btn btn-inline">Cancel</button>
                             </form>
                          </div>
                       </div>

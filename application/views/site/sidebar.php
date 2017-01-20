@@ -135,9 +135,6 @@
                     <a href="/courses/my_courses">Courses</a>
                 </li>
                 <li>
-                    <a href="/courses/create_course">Add new course</a>
-                </li>
-                <li>
                     <a href="/user/statistics">Statistics</a>
                 </li>
                 <li>

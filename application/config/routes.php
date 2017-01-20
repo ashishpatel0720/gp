@@ -32,4 +32,4 @@ $route['alumni'] = 'base/team';
 // $route['(:any)'] = 'home/$1';
 
 
-// $route['courses'] = 'courses/course/$1';
+$route['courses'] = 'courses/course';

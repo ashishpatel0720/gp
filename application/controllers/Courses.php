@@ -22,16 +22,22 @@ class Courses extends CI_Controller
         parent::__construct();
         $this->load->helper('form');
         $this->load->model('usermodel');
-        $this->load->model('restmodel');
+<<<<<<< Updated upstream
 
+=======
+        $this->load->model('restmodel');
+        $this->load->model('coursemodel');
+>>>>>>> Stashed changes
         $this->load->model('bookmodel');
 
-        $this->header_data['categories'] = load_categories();
         $this->load->library('form_validation');
+
+        $this->header_data['categories'] = load_categories();
+
         if (isset($_SESSION['USER_ID']) && !empty($_SESSION['USER_ID'])) {
             $this->loggedIn = true;
         }
-    }
+     }
 
     public function index()
     {
@@ -58,7 +64,7 @@ class Courses extends CI_Controller
             );
             $insert_id = $this->usermodel->saveCourse($data);
             if ($insert_id) {
-                redirect('/courses/view/'.$insert_id.'/'.$alias, 'refresh');
+                redirect('/course/'.$insert_id.'/'.$alias, 'refresh');
             }
         } else {
             $this->load->view('site/header', $this->header_data);
@@ -73,34 +79,10 @@ class Courses extends CI_Controller
         $this->load->view('courses/my_courses_1');
         $this->load->view('site/footer');
     }
-
-
-    private function generateToken($user_id)
-    {
-        $salt = random_string('alnum', 16);
-        $salt1 = strrev(md5($user_id));
-        return hash('SHA512', ($salt.'GPIO'.$salt1));
-    }
-
-
-    public function view()
-    {
-        $this->load->view('site/header', $this->header_data);
-        $course_id = $this->uri->segment(3);
-
-        $user = $this->session->userdata('USER_ID');
-        $user_ = $user+20000;
-        $this->load->helper('string');
-        $token = $this->generateToken($user);
-        $save =  $this->restmodel->saveToken($user, $token);
-
-      // var_dump($save);
-      // $upload_data['main_categories'] = $this->bookmodel->getMainCategory();
-      // redirect("http://upload.grabpustak.com/cp?auth=$token.'&'.$user");
-
-      $data['upload_url'] = "http://gpapi/cp/upload_book?auth=$token&user=$user_&course=$course_id";
-        $this->load->view('courses/course_detail', $data);
-        $this->load->view('site/footer');
+    public function course(){
+      $this->load->view('site/header', $this->header_data);
+      $this->load->view('courses/course_detail');
+      $this->load->view('site/footer');
     }
 }
 

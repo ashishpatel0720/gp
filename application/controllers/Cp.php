@@ -96,6 +96,7 @@ class Cp extends CI_Controller
     }
     public function signup()
     {
+        error_reporting(1);
         if (isset($_POST)) {
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             $this->form_validation->set_rules('name_title', 'Name or Title', 'trim|required|max_length[300]');
@@ -220,37 +221,21 @@ class Cp extends CI_Controller
         }
         // $this->load->view('old/footer_admin_main');
     }
-
-
-		private function generateToken($user_id){
-			$salt = random_string('alnum', 16);
-			$salt1 = strrev(md5($user_id));
-			return hash('SHA512',($salt.'GPIO'.$salt1));
-		}
-
     public function upload_book()
     {
         if (!$this->loggedIn) {
             redirect('/cp/login', 'refresh');
         }
+        error_reporting(1);
         $this->header_data['page_title'] = "Home | Grabpustak";
         $this->header_data['meta_title'] = "Home | Grabpustak ";
         $this->header_data['description']="Grabpustak is the online repository for books. Which contains the large variety of children, college books and large dataset of the nobels.";
-        $user = $this->session->userdata('PUBLISHER_ID');
-        $user_ = $user+20000;
-        $this->load->helper('string');
-        $token = $this->generateToken($user);
-        $save =  $this->cpmodel->saveToken($user,$token);
-        // var_dump($save);
-        // $upload_data['main_categories'] = $this->bookmodel->getMainCategory();
-        // redirect("http://upload.grabpustak.com/cp?auth=$token.'&'.$user");
-
-
-        redirect("http://gpapi/cp/handle?auth=$token&publisher=$user_",'refresh');
-        //
-        // $this->load->view('site/header', $this->header_data);
-        // $this->load->view('site/upload_book_form', $upload_data);
-        // $this->load->view('site/footer', $this->footer_data);
+        $this->footer_data['facebook'] = true;
+        $this->footer_data['map'] = true;
+        $upload_data['main_categories'] = $this->bookmodel->getMainCategory();
+        $this->load->view('site/header', $this->header_data);
+        $this->load->view('site/upload_book_form', $upload_data);
+        $this->load->view('site/footer', $this->footer_data);
     }
 
 
@@ -330,8 +315,8 @@ class Cp extends CI_Controller
                   // $msg = [];
                   // if(file_exists("$dir/1.png")){
 
-               $msg['type']= "Book Upload Success";
-               $msg['msg'] = 'Book has been uploaded successfully. <a href="/cp/list_book">Click Here</a> to see your uploaded books.';
+                  $msg['type']= "Book Upload Success";
+            $msg['msg'] = 'Book has been uploaded successfully. <a href="/cp/list_book">Click Here</a> to see your uploaded books.';
 
                   // copy("$dir/1.png", "$dir/$alias.png");
 
@@ -346,7 +331,9 @@ class Cp extends CI_Controller
 
                   // foreach (array_filter(glob("$dir/*.png") ,"is_file") as $f)
                   //  rename ($f, md5(uniqid().$f));
-                  // $this->load->view('upload_success', $data);
+
+
+                        // $this->load->view('upload_success', $data);
             // }
         // }
     }
@@ -363,20 +350,21 @@ class Cp extends CI_Controller
     }
     public function upload_file_server()
     {
-        $file = $this->input->get('file', true);
-        if (empty($file)) {
-            echo 'i cant upload without file ?';
-            return;
-        }
+      $file = $this->input->get('file', TRUE);
+      if(empty($file)) {
+        echo 'i cant upload without file ?';
+        return; 
+    }
 
-        $ch = curl_init('http://gpapi/welcome/upload_handler');
+            $ch = curl_init('http://gpapi/welcome/upload_handler');
 
-        $cfile = new CURLFile('static/book_pdfs/'.$file, 'application/pdf', $file);
+            $cfile = new CURLFile('static/book_pdfs/'.$file, 'application/pdf', $file);
 
-        $data = array('file' => $cfile);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        var_dump(curl_exec($ch));
-        var_dump(curl_error($ch));
+            $data = array('file' => $cfile);
+                    curl_setopt($ch, CURLOPT_POST, 1);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            var_dump(curl_exec($ch));
+            var_dump(curl_error($ch));
+
     }
 }

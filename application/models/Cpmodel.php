@@ -6,6 +6,16 @@ class CpModel extends CI_Model {
 		parent::__construct();
 
 	}
+	// users
+	public function getUser($email,$password)
+	{
+		$this->db->select('*');
+		$this->db->from('authors');
+		$this->db->where('a_email',$alias);
+		$this->db->limit(1);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 	public function login($email, $password)
     {
         $this->db->where("publisher_email", $email);
@@ -22,7 +32,7 @@ class CpModel extends CI_Model {
                     'PUBLISHER_ID' => $rows->publisher_id,
                     'PUBLISHER_MAIL' => $rows->publisher_email,
                     'PUBLISHER_TITLE' =>$rows->publisher_title,
-                    'PUBLISHER_ALIAS' => $rows->publisher_alias,
+                    'PUBLISHER_alias' => $rows->publisher_alias,
                     'PUBLISHER_VERIFIED' => $rows->publisher_verified,
                 );
 
@@ -36,10 +46,5 @@ class CpModel extends CI_Model {
     		return $this->db->insert_id();
     		else return false;
     }
-		public function saveToken($user_id,$token){
-			$data = array('hash' => $token);
-			$this->db->where('publisher_id', $user_id);
-			
-			return $this->db->update('publishers', $data);
-		}
+
 }
