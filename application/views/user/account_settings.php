@@ -658,76 +658,76 @@
     }
 
 
-.ver-inline-menu {
-    padding: 0;
-    margin: 0;
-    list-style: none
-}
+    .ver-inline-menu {
+        padding: 0;
+        margin: 0;
+        list-style: none
+    }
 
-.ver-inline-menu li {
-    position: relative;
-    margin-bottom: 1px
-}
+    .ver-inline-menu li {
+        position: relative;
+        margin-bottom: 1px
+    }
 
-.ver-inline-menu li i {
-    width: 37px;
-    height: 37px;
-    display: inline-block;
-    color: #b9cbd5;
-    font-size: 15px;
-    padding: 12px 10px 10px 8px;
-    margin: 0 8px 0 0;
-    text-align: center;
-    background: #e0eaf0!important
-}
+    .ver-inline-menu li i {
+        width: 37px;
+        height: 37px;
+        display: inline-block;
+        color: #b9cbd5;
+        font-size: 15px;
+        padding: 12px 10px 10px 8px;
+        margin: 0 8px 0 0;
+        text-align: center;
+        background: #e0eaf0!important
+    }
 
-.ver-inline-menu li a {
-    font-size: 14px;
-    font-weight: 300;
-    color: #557386;
-    display: block;
-    background: #f0f6fa;
-    border-left: solid 2px #c4d5df
-}
+    .ver-inline-menu li a {
+        font-size: 14px;
+        font-weight: 300;
+        color: #557386;
+        display: block;
+        background: #f0f6fa;
+        border-left: solid 2px #c4d5df
+    }
 
-.ver-inline-menu li:hover a {
-    background: #e0eaf0;
-    text-decoration: none
-}
+    .ver-inline-menu li:hover a {
+        background: #e0eaf0;
+        text-decoration: none
+    }
 
-.ver-inline-menu li:hover i {
-    color: #fff;
-    background: #c4d5df!important
-}
+    .ver-inline-menu li:hover i {
+        color: #fff;
+        background: #c4d5df!important
+    }
 
-.ver-inline-menu li.active a {
-    border-left: solid 2px #0c91e5
-}
+    .ver-inline-menu li.active a {
+        border-left: solid 2px #0c91e5
+    }
 
-.ver-inline-menu li.active i {
-    background: #0c91e5!important
-}
+    .ver-inline-menu li.active i {
+        background: #0c91e5!important
+    }
 
-.ver-inline-menu li.active a,.ver-inline-menu li.active i {
-    color: #fff;
-    background: #169ef4;
-    text-decoration: none
-}
+    .ver-inline-menu li.active a,.ver-inline-menu li.active i {
+        color: #fff;
+        background: #169ef4;
+        text-decoration: none
+    }
 
-.ver-inline-menu li.active a,.ver-inline-menu li:hover a {
-    font-size: 14px
-}
+    .ver-inline-menu li.active a,.ver-inline-menu li:hover a {
+        font-size: 14px
+    }
 
-.ver-inline-menu li.active:after {
-    content: '';
-    display: inline-block;
-    border-bottom: 6px solid transparent;
-    border-top: 6px solid transparent;
-    border-left: 6px solid #169ef4;
-    position: absolute;
-    top: 12px;
-    right: -5px
-}
+    .ver-inline-menu li.active:after {
+        content: '';
+        display: inline-block;
+        border-bottom: 6px solid transparent;
+        border-top: 6px solid transparent;
+        border-left: 6px solid #169ef4;
+        position: absolute;
+        top: 12px;
+        right: -5px
+    }
 
 </style>
 
@@ -762,14 +762,6 @@
 
 </script>
 
-<?php
-//    $flag=false;
-//      if(isset($_POST)){
-//          $this->load->model("usermodel");
-//          if($this->db->replace($_POST))
-//              $flag=true;
-//      }
-//?>
 
 <main class="site-main">
     <div id="wrapper">
@@ -803,45 +795,87 @@
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div id="tab_1-1" class="tab-pane active">
-                     <form role="form" class action="/user/accout_settings">
-                            <div class="form-group">
-                                <label class="control-label">First Name</label>
-                                <input type="text" placeholder="John" class="form-control" value="<?php /*  $name=explode(' ',$this->session->userdata('USER_NAME'));
-                                        echo trim($name[0]);
-                                        // echo implode("#",$name);
-                               */?>">
-                               </div>
-                            <div class="form-group">
+                            <?php
+                            if($validation_error){            
+                                 echo "<p>Please use following instructions to update your account!</p>";
+                                         echo validation_errors(); 
+                                         
+                            }elseif($update_flag==false){
+                                echo "<p>Sorry! we have some database Error!! Try again!!</p>";
+                            }
+                            else
+                                   echo "<p>Your data update successfully!!</p>";
+                            ?>
+                            <form role="form" method="post" action="/user/account_settings">
+                                <div class="form-group">
+                                    <label class="control-label">First Name</label>
+                                    <input type="text" placeholder="John" class="form-control" readonly value=
+                                    "<?php
+                                    if($this->session->userdata('USER_NAME')!=null) {
+                                        $fullname = explode(" ", $this->session->userdata('USER_NAME'));
+                                        echo $fullname[0];
+                                    }
+                                    ?>">
+                                </div>
+                                <div class="form-group">
 
-                                <label class="control-label">Last Name</label>
-                                <input type="text" placeholder="Doe" class="form-control" value="<?php /*  $name=explode(' ',$this->session->userdata('USER_NAME'));
-                                       echo trim($name[2]);
-                               */?>"> </div>
-                            <div class="form-group">
-                                <label class="control-label">Mobile Number</label>
-                                <input type="text" placeholder="+1 646 580 DEMO (6284)" class="form-control"value="<?php /* echo $this->session->userdata('USER_PHONE');
-                               */?>"> </div>
-                            <div class="form-group">
-                                <label class="control-label">Interests</label>
-                                <input type="text" placeholder="Design, Web etc." class="form-control" value="<?php /* echo $this->session->userdata('USER_INTERESTS');
-                               */?>">
-                           </div>
-                            <div class="form-group">
-                                <label class="control-label">Twitter</label>
-                                <input type="text" placeholder="http://www.twitter.com/myid" class="form-control"value="<?php /* echo $this->session->userdata('USER_TWITTER_ID');
-                               */?>">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Facebook</label>
-                                <input type="text" placeholder="http://www.facebook.com/myid" class="form-control"value="<?php /* echo $this->session->userdata('USER_PHONE');
-                               */?>">
-                            </div>
+                                    <label class="control-label">Last Name</label>
+                                    <input type="text" readonly placeholder="Doe" class="form-control" value=
+                                    "<?php
+                                    if($this->session->userdata('USER_NAME')!=null) {
+                                        $fullname = explode(" ", $this->session->userdata('USER_NAME'));
+                                        echo $fullname[2];
+                                    }
+                                    ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Email
+                                        <?php
 
-                            <div class="margiv-top-10">
-                                <a href="javascript:;" class="btn btn-primary"> Save Changes </a>
-                                <a href="javascript:;" class="btn btn-default"> Cancel </a>
-                            </div>
-                        </form>
+
+                                        if($this->session->userdata('USER_VERIFIED')!=0)
+                                            echo "<span style='color:green; font-weight:lighter;'>(varified)</span>";
+                                        else echo "<span style='color:red; font-weight:lighter '>(not varified)</span>";?>
+                                    </label>
+                                    <input type="text" placeholder="user@example.com" class="form-control" readonly value=
+                                    "<?php
+                                    if($this->session->userdata('USER_MAIL')!=null) {
+                                        echo $this->session->userdata('USER_MAIL');
+                                    }
+                                    ?>">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Mobile Number</label>
+                                     <span style="color:green;"> &nbsp;(+91) </span><input type="text" placeholder="9876543210" name='user_phone'class="form-control"value=
+                                    "<?php if($this->session->userdata('USER_PHONE')!=null)
+                                        echo $this->session->userdata('USER_PHONE');
+                                    ?>"> </div>
+                                <div class="form-group">
+                                    <label class="control-label">Interests</label>
+                                    <input type="text" placeholder="Design, Web etc." name='user_interests' class="form-control" value=
+                                    "<?php if($this->session->userdata('USER_INTERESTS')!=null)
+                                        echo $this->session->userdata('USER_INTERESETS');
+                                    ?>"> </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Twitter</label>
+                                    <input type="text" name='user_twitter_id' placeholder="grabpustak for http://www.twitter.com/grabpustak" class="form-control"value=
+                                    "<?php if($this->session->userdata('USER_TWITTER_ID')!=null)
+                                        echo $this->session->userdata('USER_TWITTER_ID');
+                                    ?>"> </div>
+                                <div class="form-group">
+                                    <label class="control-label">Facebook</label>
+                                    <input type="text" name='user_facebook_id' placeholder="grabpustak for http://www.facebook.com/grabpustak" class="form-control"value=
+                                    "<?php if($this->session->userdata('USER_FACEBOOK_ID')!=null)
+                                        echo $this->session->userdata('USER_FACEBOOK_ID');
+                                    ?>"> </div>
+
+                                <div class="margiv-top-10">
+                                    <input type="submit" class="btn btn-primary"> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="/user" class="btn btn-default"> Cancel </a>
+                                </div>
+                            </form>
                         </div>
                         <div id="tab_2-2" class="tab-pane">
                             <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
@@ -866,32 +900,32 @@
                                     </div>
                                 </div>
                                 <div class="margin-top-10">
-                                    <a href="javascript:;" class="btn green"> Submit </a>
-                                    <a href="javascript:;" class="btn default"> Cancel </a>
+                                    <input type="submit" class="btn green"> Submit </input>
+                                    <input href="/user" class="btn default"> Cancel </input>
                                 </div>
                             </form>
                         </div>
                         <div id="tab_3-3" class="tab-pane">
-                          <div class="container">
-                            <div class="row">
+                            <div class="container">
+                                <div class="row">
 
-                              <form action="#">
-                                <div class="form-group">
-                                    <label class="control-label">Current Password</label>
-                                    <input type="password" class="form-control"> </div>
-                                <div class="form-group">
-                                    <label class="control-label">New Password</label>
-                                    <input type="password" class="form-control"> </div>
-                                <div class="form-group">
-                                    <label class="control-label">Re-type New Password</label>
-                                    <input type="password" class="form-control"> </div>
-                                <div class="margin-top-10">
-                                    <a href="javascript:;" class="btn btn-primary"> Change Password </a>
-                                    <a href="javascript:;" class="btn btn-danger"> Cancel </a>
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label class="control-label">Current Password</label>
+                                            <input type="password" class="form-control"> </div>
+                                        <div class="form-group">
+                                            <label class="control-label">New Password</label>
+                                            <input type="password" class="form-control"> </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Re-type New Password</label>
+                                            <input type="password" class="form-control"> </div>
+                                        <div class="margin-top-10">
+                                            <a href="javascript:;" class="btn btn-primary"> Change Password </a>
+                                            <a href="javascript:;" class="btn btn-danger"> Cancel </a>
+                                        </div>
+                                    </form>
                                 </div>
-                              </form>
                             </div>
-                          </div>
                         </div>
                         <div id="tab_4-4" class="tab-pane">
                             <form action="#">

@@ -25,17 +25,17 @@
                         </div>
                         <div class="block-content">
 
-                            <p>Please enter following details to create an account!</p>
+                            <p>Please eter following details to create an account!</p>
                             <?php echo validation_errors(); ?>
                             <form action="/cp/signup" method="post" accept-charset="utf-8">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="name_title" placeholder="Name or Title">
+                                <input type="text" class="form-control" name="name_title" placeholder="Name or Title" value="<?php echo set_value('name_title')?>">
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" name="email" placeholder="Email">
+                                <input type="email" class="form-control" name="email" placeholder="Email" value="<?php echo set_value('email')?>">
                             </div>                   
                             <div class="form-group">
-                                <input type="text" class="form-control" name="contact_no" placeholder="Contact No.">
+                                <input type="text" class="form-control" name="contact_no" placeholder="Contact No." value="<?php echo  set_value('contact_no')?>">
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" name="password1" placeholder="Password">
