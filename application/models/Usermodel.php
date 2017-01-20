@@ -92,7 +92,11 @@ class UserModel extends CI_Model {
     public function updateAccountSettings($data,$user_id){
         $this->db->where('user_id',$user_id);
         if($this->db->update('user_information', $data))
+<<<<<<< HEAD
             return $this->db->affected_rows();
+=======
+            return $this->db->insert_id();
+>>>>>>> origin/ashish
         else return false;
     }
 
