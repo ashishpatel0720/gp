@@ -192,6 +192,8 @@ $config['log_path'] = '';
 $config['log_file_extension'] = '';
 $config['log_file_permissions'] = 0644;
 
+
+$config['global_xss_filtering'] = TRUE;//this will allow filtering of cross site scripting.
 /*
 |--------------------------------------------------------------------------
 | Date Format for Logs
