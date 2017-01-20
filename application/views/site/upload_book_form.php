@@ -71,7 +71,7 @@
                  <label class="control-label col-sm-2" for="subcategory">Book Sub Category :</label>
                  <div class="col-sm-10">
                  <select name="book_type_sub" id="sub_category_select" style="width: 100%">
-                   
+
                  </select>
                </div>
                </div>
@@ -79,11 +79,11 @@
                  <label class="control-label col-sm-2" for="subjects">Book Subject :</label>
                  <div class="col-sm-10">
                  <select name="book_cat_subject" id="subjects" style="width: 100%">
-                   
+
                  </select>
                </div>
                </div>
-        
+
 
                <div class="form-group">
                   <label class="control-label col-sm-2" for="pdf_book">Upload Book :</label>
@@ -98,7 +98,7 @@
                <div class="col-sm-2"></div>
                <div class="col-sm-10">
                 <button type="submit" class="btn btn-inline">Register</button>
-
+								
                   <!-- <button type="submit" class="btn btn-danger btn-block">Submit</button> -->
                </div>
                </div>
@@ -121,7 +121,7 @@ $(document).ready(function() {
   $('#sub_category_select').select2({
           placeholder:'Subcategory',
   });
-  $("#sub_category_select").prop("disabled", true); 
+  $("#sub_category_select").prop("disabled", true);
 
   $('#subjects').select2({
           placeholder:'Subject',
@@ -155,7 +155,7 @@ $('#main_category_select').on('select2:select', function (evt) {
   .fail(function() {
     console.log("error");
   });
-  
+
 });
 
 $('#sub_category_select').on('select2:select', function (evt) {
@@ -184,7 +184,7 @@ $('#sub_category_select').on('select2:select', function (evt) {
   .fail(function() {
     console.log("error");
   });
-  
+
 });
 
 </script>

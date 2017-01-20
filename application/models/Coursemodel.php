@@ -53,5 +53,10 @@ class CourseModel extends CI_Model {
     		else return false;
     }
 
+		public function saveToken($user_id,$token){
+			$data = array('hash' => $token);
+			$this->db->where('user_id', $user_id);
+			return $this->db->update('users', $data);
+		}
 
 }
