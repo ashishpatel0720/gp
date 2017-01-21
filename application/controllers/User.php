@@ -61,9 +61,16 @@ class User extends CI_Controller {
 
 		if(!$this->loggedIn)
 			redirect('/user/login');
-
+              $this->db->select('user_website,user_facebook_id,user_twitter_id');
+              $this->db->where('user_id',$this->session->userdata('USER_ID'));
+              $query=$this->db->get("user_information");
+              $social_info=$query->row_array();
+        
 		$this->load->view('site/header',$this->header_data);
-		$this->load->view('user/dashboard2');
+                echo "<pre>";
+                var_dump($social_info);
+                echo "</pre>";
+		$this->load->view('user/dashboard2',$social_info);
 		$this->load->view('site/footer');
 	}
 

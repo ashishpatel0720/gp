@@ -732,28 +732,28 @@
               <div>
                 <div class="margin-top-20 profile-desc-link">
                   <i class="fa fa-globe"></i>
-                  <a href="http://<?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->userdata('USER_WEBSITE')?>">
-                    <?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->userdata('USER_WEBSITE');
+                  <a href="http://<?php if($user_website)echo $user_website?>">
+                    <?php if($user_website)echo $user_website;
                     else echo "<a href='/user/account_settings'>Add Now</a>"?>
                   </a>
                 </div>
                 <div class="margin-top-20 profile-desc-link">
                   <i class="fa fa-twitter"></i>
-                  <a href="http://twitter.com/<?php if($this->session->has_userdata('USER_TWITTER_ID'))echo $this->session->userdata('USER_WEBSITE')?>">
-                    <?php if($this->session->has_userdata('USER_'))echo "@".$this->session->userdata('USER_WEBSITE');
+                  <a href="http://twitter.com/<?php if($user_twitter_id)echo $user_twitter_id?>">
+                    <?php if($user_twitter_id)echo '@'.$user_twitter_id;
                     else echo "<a href='/user/account_settings'>Add Now</a>";
                     ?>
                   </a>
                 </div>
                 <div class="margin-top-20 profile-desc-link">
                   <i class="fa fa-facebook"></i>
-                  <a href="http://facebook.com/<?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->userdata('USER_WEBSITE')?>">
-                    <?php if($this->session->has_userdata('USER_WEBSITE'))echo $this->session->userdata('USER_WEBSITE');
+                  <a href="http://facebook.com/<?php if($user_facebook_id)echo $user_facebook_id?>">
+                    <?php if($user_facebook_id)echo $user_facebook_id;
                     else echo "<a href='/user/account_settings'>Add Now</a>"?>
                   </a>
                 </div>
-              </div>
 
+              </div>
             </div>
           </div>
 
