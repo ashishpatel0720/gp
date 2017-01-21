@@ -188,9 +188,73 @@ class User extends CI_Controller {
  	}
 }
         
-	public function update_password(){
-
-	}
+	public function change_password(){
+             echo "<pre>";
+             var_dump($_POST);
+             echo "</pre>";
+             if(!empty($_POST)){
+                 echo "\$_POST not empty";
+                 /**
+                  * checking if password matches
+                  */
+                
+                 $this->form_validation->set_rules('current_password',"Current Password",'required|trim|min_length[6]|alpha_numeric',
+                                             array(
+                                                 'min_length'=>"%s should be of min length 6 digits ",
+                                                  'alpha_numerica'=>"%s could contain only alphabet and numbers ",
+                                                ));
+                 $this->form_validation->set_rules('new_password_1',"New Password",'required|trim|min_length[6]|alpha_numeric',
+                                             array(
+                                                 'min_length'=>"%s should be of min length 6 digits ",
+                                                  'alpha_numerica'=>"%s could contain only alphabet and numbers ",
+                                                ));
+                   $this->form_validation->set_rules('new_password_2',"Re-type Password",'required|trim|min_length[6]|alpha_numeric|matches[new_password_1]',
+                                             array(
+                                                 'min_length'=>"%s should be of min length 6 digits ",
+                                                  'alpha_numerica'=>"%s could contain only alphabet and numbers ",
+                                                 'match'=>'New Password do not matches.'
+                                                ));
+               
+                 if($this->form_validation->run()==TRUE)
+                     {
+                 $query=$this->db->select('user_password')
+                                  ->where('user_id',$this->session->userdata('USER_ID'))
+                                  ->get('users');
+                 $pword=$query->row_array();
+                 echo "db<br>"; 
+                 var_dump($pword);                 
+                  echo "given<br>";
+                  var_dump($this->user_password_hash($this->input->post('current_password')));
+              
+                  if($this->user_password_hash($this->input->post('current_password'))==$pword['user_password']){
+                    echo "<script>alert('password  matched')</script>";
+                      $this->db->set('user_password',$this->user_password_hash($this->input->post('new_password_1'))) 
+                                 ->where('user_id',$this->session->userdata("USER_ID"));  
+                      $this->db->update('users');
+                    if($this->db->affected_rows()==1){
+                    echo "<script>alert('password  changed')</script>";
+                        
+                    }else{
+                    echo "<script>alert('password  could not be changed')</script>";
+                    }
+                                 
+                  } 
+                 else{
+                     echo "<script>alert('password do not matched')</script>";
+                     
+                 }
+             }else{
+                 echo validation_errors();
+                     echo "<script>alert('validation error')</script>";
+                     //redirect("/user/account_settings");       
+             }
+            }
+             else{
+                     echo "<script>alert('post was not submitted')</script>";
+                
+                // redirect("/user/account_settings");
+             }
+        }
 
 
 
@@ -200,8 +264,9 @@ class User extends CI_Controller {
 	               $this->form_validation->set_rules('fname', 'First Name', 'trim|required|max_length[30]');
 			$this->form_validation->set_rules('mname', 'Middle Name', 'trim|max_length[30]');
 			$this->form_validation->set_rules('lname', 'Last Name', 'trim|required|max_length[30]');
-			$this->form_validation->set_rules('password1', 'Password', 'trim|required|min_length[6]',array('required'=>'Password is required','min_length'=>'Password must be of Minimum 6 Digits'));
-			$this->form_validation->set_rules('password2', 'Password Confirmation', 'trim|required|matches[password1]|min_length[6]',array('required'=>'Password Confirmation is required','min_length'=>'Password must be of Minimum 6 Digits'));
+			$this->form_validation->set_rules('password1', 'Password', 'trim|required|min_length[6]|alpha_numeric',
+				array('required'=>'Password is required','min_length'=>'Password must be of Minimum 6 Digits','alpha_numeric'=>'Password should contain only alphabet and numbers'));
+			$this->form_validation->set_rules('password2', 'Password Confirmation', 'trim|required|matches[password1]|min_length[6]',array('required'=>'Password Confirmation is required','min_length'=>'Password must be of Minimum 6 Digits','alpha_numeric'=>'Password should contain only alphabet and numbers'));
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email',array('required'=>'Email is required'));
 			if ($this->form_validation->run() == TRUE){
 

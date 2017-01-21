@@ -780,15 +780,15 @@
                         </li>
                         <li>
                             <a data-toggle="tab" href="#tab_2-2">
-                                <i class="fa fa-picture-o"></i> Change Avatar </a>
+                                <i class="fa fa-picture-o"></i>Avatar</a>
                         </li>
                         <li>
                             <a data-toggle="tab" href="#tab_3-3">
-                                <i class="fa fa-lock"></i> Change Password </a>
+                                <i class="fa fa-lock"></i>Password</a>
                         </li>
                         <li>
                             <a data-toggle="tab" href="#tab_4-4">
-                                <i class="fa fa-eye"></i> Privacy Settings </a>
+                                <i class="fa fa-eye"></i>Privacy</a>
                         </li>
                     </ul>
                 </div>
@@ -925,22 +925,21 @@
                             </form>
                         </div>
                         <div id="tab_3-3" class="tab-pane">
-                            <div class="container">
+                            <div class="container" >
                                 <div class="row">
-
-                                    <form action="#">
+                                    <form  action="/user/change_password" method="post">
                                         <div class="form-group">
                                             <label class="control-label">Current Password</label>
-                                            <input type="password" class="form-control"> </div>
+                                            <input type="password" class="form-control" name="current_password"> </div>
                                         <div class="form-group">
                                             <label class="control-label">New Password</label>
-                                            <input type="password" class="form-control"> </div>
+                                            <input type="password" class="form-control"name="new_password_1"> </div>
                                         <div class="form-group">
                                             <label class="control-label">Re-type New Password</label>
-                                            <input type="password" class="form-control"> </div>
+                                            <input type="password" class="form-control" name="new_password_2"> </div>
                                         <div class="margin-top-10">
-                                            <a href="javascript:;" class="btn btn-primary"> Change Password </a>
-                                            <a href="javascript:;" class="btn btn-danger"> Cancel </a>
+                                            <input type="submit" class="btn btn-primary">
+                                            <a href="/user/dashboard" class="btn btn-danger"> Cancel </a>
                                         </div>
                                     </form>
                                 </div>
