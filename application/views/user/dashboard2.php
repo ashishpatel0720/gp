@@ -752,7 +752,12 @@
                     else echo "<a href='/user/account_settings'>Add Now</a>"?>
                   </a>
                 </div>
-
+               <div class="margin-top-20 profile-desc-link">
+                  <i class="fa fa-edit"></i>
+                  <a href="/user/account_settings">
+                      <span style="color:#FF7E00"> Edit Your Account</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

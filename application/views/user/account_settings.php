@@ -796,18 +796,30 @@
                     <div class="tab-content">
                         <div id="tab_1-1" class="tab-pane active">                          
  <?php
-                            if(!isset($validation_flag)){
-                              echo "<p> Fill the fields and submit to update your date</p>";
+//           echo "<pre>";
+//           var_dump($this->session->userdata());
+//           echo "</pre>";
+                           if($this->session->userdata('is_updated')==true){ 
+                                 echo "<div class='alert alert-success'>Your data update successfully!!</div>";        
+                            }
+                            elseif($this->session->userdata('is_updated')===false){ 
+                                /**
+                                 * strict comparision because it will become null, when we want to get others to execute.
+                                 * NULL: when  
+                                 */
+                              echo "<div class='alert alert-info'> Fill the fields and submit to update your information.</div>";
                             }    
-                            elseif($validation_flag&&$update_flag){ 
-                                 echo "<p>Your data update successfully!!</p>";        
-                            }elseif($validation_flag && !$update_flag){
-                                echo "<p>Sorry! we have some database Error!! Try again!!</p>";
+                            elseif($validation_flag && !$update_flag){
+                                echo "<div class='alert alert-warning'>Your data could not be updated!! Try again!!</div>";
                             }
                             elseif(!$validation_flag){
-                                 echo "<p>Please use following instructions to update your account!</p>";
-                                    echo validation_errors(); 
-                            } ?>
+                                 echo "<div class='alert alert-danger'>Please use following instructions to update your account!";
+                                  echo validation_errors(); 
+                                echo "</div>";
+                                  
+                            }
+                            $this->session->set_userdata('is_updated',null);#unset so that next time we start over
+                            ?>
                             <form role="form" method="post" action="/user/account_settings">
                                 <div class="form-group">
                                     <label class="control-label">First Name</label>
@@ -859,7 +871,12 @@
                                     "<?php if($user_interests!=null)
                                         echo $user_interests;
                                     ?>"> </div>
-
+                                <div class="form-group">
+                                    <label class="control-label">Website</label>
+                                    <input type="text" name='user_website' placeholder="example.com" class="form-control"value=
+                                    "<?php if($user_website!=null)
+                                        echo $user_website;
+                                    ?>"> </div>
                                 <div class="form-group">
                                     <label class="control-label">Twitter</label>
                                     <input type="text" name='user_twitter_id' placeholder="grabpustak for http://www.twitter.com/grabpustak" class="form-control"value=

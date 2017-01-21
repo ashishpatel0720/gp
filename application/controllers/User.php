@@ -67,10 +67,10 @@ class User extends CI_Controller {
               $social_info=$query->row_array();
         
 		$this->load->view('site/header',$this->header_data);
-                echo "<pre>";
-                var_dump($social_info);
-                echo "</pre>";
-		$this->load->view('user/dashboard2',$social_info);
+//                echo "<pre>";
+//                var_dump($social_info);
+//                echo "</pre>";
+	$this->load->view('user/dashboard2',$social_info);
 		$this->load->view('site/footer');
 	}
 
@@ -132,49 +132,60 @@ class User extends CI_Controller {
             $this->db->where("user_id",$this->session->userdata('USER_ID'));
             $query=$this->db->get("user_information");
             $user_info=$query->row_array();
-        if(isset($_POST)){
-		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		$this->form_validation->set_rules('user_phone', 'Phone Number', 'trim|exact_length[10]',array('exact_length'=>'%s is not valid.'));
-		$this->form_validation->set_rules('user_interests', 'Interests', 'trim|max_length[100]',array('max_length'=>'Limit Exceed.'));
+        if(!empty($_POST)){
+          
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+		$this->form_validation->set_rules('user_phone', 'Phone Number', 'trim|exact_length[10]|numeric',array('exact_length'=>'%s is not valid.','numeric'=>'%s should be numeric'));
+		$this->form_validation->set_rules('user_interests', 'Interests', 'trim|max_length[100]',array('max_length'=>'Word Limit Exceed.'));
 		$this->form_validation->set_rules('user_twitter_id', 'Twitter Handle', 'trim|max_length[50]',array('max_length'=>'Your Twitter Handle is not valid.'));
 		$this->form_validation->set_rules('user_facebook_id', 'Facebook Profile', 'trim|max_length[50]',array('max_length'=>'You Facebook Profile is not valid.'));
      if ($this->form_validation->run()==TRUE)
          {
+//         echo "validation true";
 		    $data=$this->input->post(NULL,TRUE);
-                    $this->session->userdata('USER_ID');
 	            if($this->usermodel->updateAccountSettings($data, $this->session->userdata('USER_ID'))){
-				 $user_info['update_flag']=true;
-                                 $user_info['validation_flag']=true;
+		//	 echo "udpate true";	
+                        $user_info['update_flag']=true;
+                        $user_info['validation_flag']=true;
 //                                 $this->load->view('/site/header');
-//		                 $this->load->view('/user/account_settings',$user_info);
+//		                   $this->load->view('/user/account_settings',$user_info);
 //                                 $this->load->view('/site/footer');
-                                    redirect("/user/account_settings");              
+                       $this->session->set_userdata(array('is_updated'=>true));
+                        redirect("/user/account_settings");              
                  }else
 			 {
+            //                  echo "Update false";
 				 $user_info['update_flag']=false;
                                  $user_info['validation_flag']=true;
                               
                                  $this->load->view('/site/header');
 		                 $this->load->view('/user/account_settings',$user_info);
                                  $this->load->view('/site/footer');
+                                unset($user_info);
                                  }
 	 }else{
-             	        $d['update_flag']=false;
-                                 $user_info['validation_flag']=false;
+   //          echo "validation flase";
+             	        $user_info['update_flag']=false;
+                        $user_info['validation_flag']=false;
                                  
                                  $this->load->view('/site/header');
                                             
 		                 $this->load->view('/user/account_settings',$user_info);
                                  $this->load->view('/site/footer');
-                          }
+                         unset($user_info);
+                                 
+                                 }
         }
         else
         {
+     //       echo "not a post request";
+             if($this->session->userdata('is_updated')!=true) #so that we can tell that we have come here with out success_redirection
+                 $this->session->set_userdata('is_updated',false);
 	        $this->load->view('site/header');
 		$this->load->view('user/account_settings',$user_info);
 		$this->load->view('site/footer');
-                
-	}
+                unset($user_info);               
+ 	}
 }
         
 	public function update_password(){
