@@ -94,7 +94,7 @@ class User extends CI_Controller {
 					$this->session->set_userdata($userdata);
 					$userinfo = $this->usermodel->getUserInfo($session['USER_ID']);
 					if(!empty($userinfo))  $this->session->set_userdata($userinfo);
-					redirect('/user/dashboard');
+			                redirect('/user/dashboard');
 
 				}else{
 					$this->load->view('site/header',$this->header_data);
@@ -118,48 +118,57 @@ class User extends CI_Controller {
 	 * this function updates information form view user/account_settings
 	 */
 	public function account_settings(){
-            $d=array();
-            if(isset($_POST)){
+            if(!$this->loggedIn) 
+                redirect('user/login');
+            
+            //getting user data from 'user_information' and populating in $user_info
+            $this->db->where("user_id",$this->session->userdata('USER_ID'));
+            $query=$this->db->get("user_information");
+            $user_info=$query->row_array();
+        if(isset($_POST)){
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		$this->form_validation->set_rules('user_phone', 'Phone Number', 'trim|exact_length[10]',array('exact_length'=>'%s is not valid.'));
 		$this->form_validation->set_rules('user_interests', 'Interests', 'trim|max_length[100]',array('max_length'=>'Limit Exceed.'));
 		$this->form_validation->set_rules('user_twitter_id', 'Twitter Handle', 'trim|max_length[50]',array('max_length'=>'Your Twitter Handle is not valid.'));
 		$this->form_validation->set_rules('user_facebook_id', 'Facebook Profile', 'trim|max_length[50]',array('max_length'=>'You Facebook Profile is not valid.'));
-     if ($this->form_validation->run()==TRUE){
+     if ($this->form_validation->run()==TRUE)
+         {
 		    $data=$this->input->post(NULL,TRUE);
-               $this->session->userdata('USER_ID');
-	       	 if($this->usermodel->updateAccountSettings($data, $this->session->userdata('USER_ID'))){
-				 $d['update_flag']=true;
-                                 $d['validation_error']=false;
-                                 $this->load->view('/site/header');
-		                 $this->load->view('/user/account_settings',$d);
-                                 $this->load->view('/site/footer');
-                                 
+                    $this->session->userdata('USER_ID');
+	            if($this->usermodel->updateAccountSettings($data, $this->session->userdata('USER_ID'))){
+				 $user_info['update_flag']=true;
+                                 $user_info['validation_flag']=true;
+//                                 $this->load->view('/site/header');
+//		                 $this->load->view('/user/account_settings',$user_info);
+//                                 $this->load->view('/site/footer');
+                                    redirect("/user/account_settings");              
                  }else
 			 {
-				 $d['update_flag']=false;
-                                 $d['validation_error']=false;
+				 $user_info['update_flag']=false;
+                                 $user_info['validation_flag']=true;
                               
                                  $this->load->view('/site/header');
-		                 $this->load->view('/user/account_settings',$d);
+		                 $this->load->view('/user/account_settings',$user_info);
                                  $this->load->view('/site/footer');
                                  }
 	 }else{
              	        $d['update_flag']=false;
-                                 $d['validation_error']=true;
+                                 $user_info['validation_flag']=false;
                                  
                                  $this->load->view('/site/header');
-                                 
-		                 $this->load->view('/user/account_settings',$d);
+                                            
+		                 $this->load->view('/user/account_settings',$user_info);
                                  $this->load->view('/site/footer');
                           }
-        }else
-        {
-		$this->load->view('site/header');
-		$this->load->view('user/account_settings');
-		$this->load->view('site/footer');
-	}
         }
+        else
+        {
+	        $this->load->view('site/header');
+		$this->load->view('user/account_settings',$user_info);
+		$this->load->view('site/footer');
+                
+	}
+}
         
 	public function update_password(){
 

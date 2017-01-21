@@ -37,28 +37,9 @@ class UserModel extends CI_Model {
                     'USER_VERIFIED' => $rows->user_verified,
                 );
            }
+           return $userdata;
          }
-     else return false;
-    # adding from user_informationt table
-    #table has been modified accordingly
-        $this->db->where("user_id", $userdata['USER_ID']);
-     
-        $query = $this->db->get("user_information");
-        if ($query->num_rows() == 1)
-        {
-            foreach ($query->result() as $rows)
-            {
-                //add all data to session
-               
-                  $userdata ['USER_TWITTER_ID'] = $rows->user_twitter_id;
-                  $userdata ['USER_FACEBOOK_ID'] = $rows->user_facebook_id;
-                  $userdata ['USER_INTERESTS'] = $rows->user_interests;
-                  $userdata ['USER_PHONE'] = $rows->user_phone;
-                  $userdata ['USER_WEBSITE'] = $rows->user_website;
-           }
-          return $userdata;
-        }
-        return false;
+     return false;
     }
 
     public function getUserInfo($user_id)

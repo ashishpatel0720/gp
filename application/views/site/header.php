@@ -79,7 +79,14 @@
 
                         <div class="col-md-4 col-lg-3  nav-right">
 
-                            <a href="/user" class="link-login"><span>My Account</span></a>
+                            <a href="/user" class="link-login"><span>
+                                <?php 
+                                if($this->session->userdata('USER_NAME'))
+                                  echo $this->session->userdata('USER_NAME');
+                                else
+                                    echo "My Account";
+                                ?>
+                                </span></a>
                             <!-- <a href="/favorites" class="link-favorites"><span>Favorites</span></a> -->
                         </div>
                     </div>

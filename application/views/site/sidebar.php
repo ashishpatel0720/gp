@@ -143,6 +143,10 @@
                 <li>
                     <a href="/contact">Contact</a>
                 </li>
+                <li>
+                    <a href="/user/logout">Log out</a>
+                </li>
+                
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->

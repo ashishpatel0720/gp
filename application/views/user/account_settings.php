@@ -794,18 +794,20 @@
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
-                        <div id="tab_1-1" class="tab-pane active">
-                            <?php
-                            if($validation_error){            
-                                 echo "<p>Please use following instructions to update your account!</p>";
-                                         echo validation_errors(); 
-                                         
-                            }elseif($update_flag==false){
+                        <div id="tab_1-1" class="tab-pane active">                          
+ <?php
+                            if(!isset($validation_flag)){
+                              echo "<p> Fill the fields and submit to update your date</p>";
+                            }    
+                            elseif($validation_flag&&$update_flag){ 
+                                 echo "<p>Your data update successfully!!</p>";        
+                            }elseif($validation_flag && !$update_flag){
                                 echo "<p>Sorry! we have some database Error!! Try again!!</p>";
                             }
-                            else
-                                   echo "<p>Your data update successfully!!</p>";
-                            ?>
+                            elseif(!$validation_flag){
+                                 echo "<p>Please use following instructions to update your account!</p>";
+                                    echo validation_errors(); 
+                            } ?>
                             <form role="form" method="post" action="/user/account_settings">
                                 <div class="form-group">
                                     <label class="control-label">First Name</label>
@@ -848,27 +850,27 @@
                                 <div class="form-group">
                                     <label class="control-label">Mobile Number</label>
                                      <span style="color:green;"> &nbsp;(+91) </span><input type="text" placeholder="9876543210" name='user_phone'class="form-control"value=
-                                    "<?php if($this->session->userdata('USER_PHONE')!=null)
-                                        echo $this->session->userdata('USER_PHONE');
+                                    "<?php if($user_phone!=null)
+                                        echo $user_phone;
                                     ?>"> </div>
                                 <div class="form-group">
                                     <label class="control-label">Interests</label>
                                     <input type="text" placeholder="Design, Web etc." name='user_interests' class="form-control" value=
-                                    "<?php if($this->session->userdata('USER_INTERESTS')!=null)
-                                        echo $this->session->userdata('USER_INTERESETS');
+                                    "<?php if($user_interests!=null)
+                                        echo $user_interests;
                                     ?>"> </div>
 
                                 <div class="form-group">
                                     <label class="control-label">Twitter</label>
                                     <input type="text" name='user_twitter_id' placeholder="grabpustak for http://www.twitter.com/grabpustak" class="form-control"value=
-                                    "<?php if($this->session->userdata('USER_TWITTER_ID')!=null)
-                                        echo $this->session->userdata('USER_TWITTER_ID');
+                                    "<?php if($user_twitter_id!=null)
+                                        echo $user_twitter_id;
                                     ?>"> </div>
                                 <div class="form-group">
                                     <label class="control-label">Facebook</label>
                                     <input type="text" name='user_facebook_id' placeholder="grabpustak for http://www.facebook.com/grabpustak" class="form-control"value=
-                                    "<?php if($this->session->userdata('USER_FACEBOOK_ID')!=null)
-                                        echo $this->session->userdata('USER_FACEBOOK_ID');
+                                    "<?php if($user_facebook_id!=null)
+                                        echo $user_facebook_id;
                                     ?>"> </div>
 
                                 <div class="margiv-top-10">
