@@ -97,13 +97,16 @@ class Rest extends CI_Controller
         } else {
             $data_upload = $this->upload->data();
                     // $this->output->set_content_type('application/json')->set_output(json_encode($data));
+                    $material_type = $this->config->item('material_type');
+                    $file_name = explode('.',$data_upload['raw_name'])[0];
 
                     $data = array(
-                    'course_id'=> $course_id,
+                    'material_course_id'=> $course_id,
                     'material_title'=>$upload_metadata->title,
                     'material_description'=>$upload_metadata->description,
-                    'folder_path'=> $data_upload['full_path'],
+                    'folder_path'=> FCPATH.'static/book_html/'.$file_name,
                     'is_html' => 1,
+                    'material_type' =>$material_type['STUDY'],
                     'material_created_at'=> date('Y-m-d H:i:s'),
                     'is_deleted'=>0,
                     );
@@ -126,9 +129,9 @@ class Rest extends CI_Controller
                   // {
                   //         $this->db->trans_commit();
                   // }
-                  $path = $data_upload['full_path'];
-            $extraction_path  = FCPATH.'static/book_html/';
-            shell_exec("tar -xvf $path -C $extraction_path");
+                    $path = $data_upload['full_path'];
+                    $extraction_path  = FCPATH.'static/book_html/';
+                    shell_exec("tar -xvf $path -C $extraction_path");
 
 
                     // if(pdf_to_img($data['full_path'],$data['file_path'].'../book_images/'.$alias)){

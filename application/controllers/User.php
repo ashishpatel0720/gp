@@ -87,8 +87,7 @@ class User extends CI_Controller {
 			 $userdata = $this->usermodel->login(strtolower($_POST['email']), $this->user_password_hash($_POST['password']));
 			 if($userdata){
 				 $this->session->set_userdata($userdata);
-				 $userinfo = $this->usermodel->getUserInfo($session['USER_ID']);
-				 if(!empty($userinfo))  $this->session->set_userdata($userinfo);
+ 
 				 redirect('/user/dashboard');
 
 			 }else{

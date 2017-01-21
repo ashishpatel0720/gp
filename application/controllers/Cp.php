@@ -9,7 +9,6 @@ class Cp extends CI_Controller
     private $userPermissions = [];
     public function __construct()
     {
-        error_reporting(1);
         parent::__construct();
         $this->load->helper('url');
         $this->load->helper('form');
@@ -19,7 +18,7 @@ class Cp extends CI_Controller
         $this->load->model('bookmodel');
         $this->categories= [];
       // $this->output->cache(3);
-      $books = ($this->bookmodel->fetchCategories());
+       $books = ($this->bookmodel->fetchCategories());
         foreach ($books as $key => $value) {
             $this->categories[$value['main_category_title']][$value['sub_category_title']][] = $value['subject_title'];
         }
@@ -222,11 +221,12 @@ class Cp extends CI_Controller
     }
 
 
-		private function generateToken($user_id){
-			$salt = random_string('alnum', 16);
-			$salt1 = strrev(md5($user_id));
-			return hash('SHA512',($salt.'GPIO'.$salt1));
-		}
+    private function generateToken($user_id)
+    {
+        $salt = random_string('alnum', 16);
+        $salt1 = strrev(md5($user_id));
+        return hash('SHA512', ($salt.'GPIO'.$salt1));
+    }
 
     public function upload_book()
     {
@@ -240,13 +240,13 @@ class Cp extends CI_Controller
         $user_ = $user+20000;
         $this->load->helper('string');
         $token = $this->generateToken($user);
-        $save =  $this->cpmodel->saveToken($user,$token);
+        $save =  $this->cpmodel->saveToken($user, $token);
         // var_dump($save);
         // $upload_data['main_categories'] = $this->bookmodel->getMainCategory();
         // redirect("http://upload.grabpustak.com/cp?auth=$token.'&'.$user");
 
 
-        redirect("http://gpapi/cp/handle?auth=$token&publisher=$user_",'refresh');
+        redirect("http://gpapi/cp/handle?auth=$token&publisher=$user_", 'refresh');
         //
         // $this->load->view('site/header', $this->header_data);
         // $this->load->view('site/upload_book_form', $upload_data);
@@ -331,7 +331,7 @@ class Cp extends CI_Controller
                   // if(file_exists("$dir/1.png")){
 
                $msg['type']= "Book Upload Success";
-               $msg['msg'] = 'Book has been uploaded successfully. <a href="/cp/list_book">Click Here</a> to see your uploaded books.';
+            $msg['msg'] = 'Book has been uploaded successfully. <a href="/cp/list_book">Click Here</a> to see your uploaded books.';
 
                   // copy("$dir/1.png", "$dir/$alias.png");
 

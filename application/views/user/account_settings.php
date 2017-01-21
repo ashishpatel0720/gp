@@ -771,6 +771,23 @@
 //      }
 //?>
 
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#tabs a").click(function(e){
+      e.preventDefault();
+      $(this).tab('show');
+      $('html,body').scrollTop(0);
+     });
+$("#tabs > li > a").on("shown.bs.tab", function(e) {
+  e.preventDefault();
+  var id = $(e.target).attr("href").substr(1);
+  window.location.hash = id;
+  $('html,body').scrollTop(0);
+});
+var hash = window.location.hash;
+$('#tabs  a[href="' + hash + '"]').tab('show');
+});
+</script>
 <main class="site-main">
     <div id="wrapper">
         <?php $this->view('site/sidebar'); ?>
@@ -780,7 +797,7 @@
             <br>
             <div class="row profile-account">
                 <div class="col-md-3">
-                    <ul class="ver-inline-menu tabbable margin-bottom-10">
+                    <ul class="ver-inline-menu tabbable margin-bottom-10" id="tabs">
                         <li class="active">
                             <a data-toggle="tab" href="#tab_1-1">
                                 <i class="fa fa-cog"></i> Personal info </a>
@@ -803,7 +820,7 @@
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div id="tab_1-1" class="tab-pane active">
-                     <form role="form" class action="/user/accout_settings">
+                          <form role="form" class action="/user/accout_settings">
                             <div class="form-group">
                                 <label class="control-label">First Name</label>
                                 <input type="text" placeholder="John" class="form-control" value="<?php /*  $name=explode(' ',$this->session->userdata('USER_NAME'));
@@ -968,10 +985,6 @@
                 </div>
                 <!--end col-md-9-->
             </div>
-
-
-
-
         </div>
     </div>
 </main>
