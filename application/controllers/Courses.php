@@ -111,40 +111,34 @@ class Courses extends CI_Controller
         $salt1 = strrev(md5($user_id));
         return hash('SHA512', ($salt.'GPIO'.$salt1));
     }
-    //
-    //
-    // public function view()
-    // {
-    //     $this->load->view('site/header', $this->header_data);
-    //     $course_id = $this->uri->segment(3);
-    //
-    //     $user = $this->session->userdata('USER_ID');
-    //     $user_ = $user+20000;
-    //     $this->load->helper('string');
-    //     $token = $this->generateToken($user);
-    //     $save =  $this->restmodel->saveToken($user, $token);
-    //
-    //   // redirect("http://upload.grabpustak.com/cp?auth=$token.'&'.$user");
-    //
-    //     $data['upload_url'] = "http://gpapi/cp/upload_book?auth=$token&user=$user_&course=$course_id";
-    //     $this->load->view('courses/course_detail', $data);
-    //     $this->load->view('site/footer');
-    // }
 
 
-        public function view()
-        {
-            $this->load->view('site/header', $this->header_data);
-            $course_id = $this->uri->segment(3);
+    public function view()
+    {
+      $this->load->view('site/header', $this->header_data);
+      $course_id = $this->uri->segment(3);
 
-            $data['course_data'] = $this->coursemodel->getCourseById($course_id);
-            $data['study_material'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['STUDY']);
-            $data['assignments'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['ASSIGNMENT']);
-            $data['syllabus'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['SYLLABUS']);
+      $data['course_data'] = $this->coursemodel->getCourseById($course_id);
+      $data['study_material'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['STUDY']);
+      $data['assignments'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['ASSIGNMENT']);
+      $data['syllabus'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['SYLLABUS']);
 
-            $this->load->view('courses/course_detail_view', $data);
-            $this->load->view('site/footer');
-        }
+      if (!$this->loggedIn) {
+        $this->load->view('courses/course_detail_view', $data);
+      }else{
+        $user = $this->session->userdata('USER_ID');
+        $user_ = $user+20000;
+        $this->load->helper('string');
+        $token = $this->generateToken($user);
+        $save =  $this->restmodel->saveToken($user, $token);
+      // redirect("http://upload.grabpustak.com/cp?auth=$token.'&'.$user");
+
+        $data['upload_url'] = "http://gpapi/cp/upload_book?auth=$token&user=$user_&course=$course_id";
+        $this->load->view('courses/course_detail_edit', $data);
+      }
+        $this->load->view('site/footer');
+    }
+
 
 }
 

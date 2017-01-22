@@ -8,7 +8,7 @@
  * @author Arvind Dhakad
  *
  */
- 
+
 defined('BASEPATH') or exit('No direct script access allowed');
 class Handler extends CI_Controller
 {
@@ -135,37 +135,65 @@ class Handler extends CI_Controller
         }
     }
 
+    // public function page_html()
+    // {
+    //     $whetheriswhether = false;
+    //     $content = 'whether is not whether';
+    //
+    //     $book = $this->uri->segment(2);
+    //     $file_name = $this->uri->segment(5);
+    //     // $hash = $this->uri->segment(5);
+    //     if (!empty($book) && !empty($file_name)) {
+    //         // if($this->session->userdata('hash')!=$hash) return;
+    //         try {
+    //             $path = 'static/book_html/'.$book.'/';
+    //             $file = 'static/book_html/'.$book.'/'.$book.'.html';
+    //
+    //             $doc = new DOMDocument();
+    //             $doc_ = new DOMDocument();
+    //             $doc->loadHTMLFile($file);
+    //             $page = $doc->getElementById('pf'.dechex($file_name));
+    //
+    //             if ($page) {
+    //                 $html_ = ($doc->saveHTML($page));
+    //                 $doc_->loadHTML('<?xml encoding="UTF-8">' .$html_);
+    //                 $img_ele = $doc_->getElementsByTagName('img');
+    //                 foreach ($img_ele as $key => $value) {
+    //                     $temp = $value->getAttribute('src');
+    //                     $value->setAttribute('src', $path.$temp);
+    //                 }
+    //
+    //                 $whetheriswhether = true;
+    //                 $content = $doc_->saveHTML();
+    //             }
+    //         } catch (Exception $e) {
+    //             $whetheriswhether = false;
+    //         }
+    //         $output = array('whetheriswhether' => $whetheriswhether,'content'=>$content);
+    //         $this->output->set_content_type('application/json')->set_output(json_encode($output));
+    //     }
+    // }
     public function page_html()
     {
         $whetheriswhether = false;
         $content = 'whether is not whether';
 
-        $book = $this->uri->segment(2);
+        $material_id = $this->uri->segment(2);
         $file_name = $this->uri->segment(5);
         // $hash = $this->uri->segment(5);
-        if (!empty($book) && !empty($file_name)) {
+        if (!empty($material_id) && !empty($file_name)) {
             // if($this->session->userdata('hash')!=$hash) return;
             try {
-                $path = 'static/book_html/'.$book.'/';
-                $file = 'static/book_html/'.$book.'/'.$book.'.html';
+                $path = FCPATH.'static/book_html/'.$material_id.'/';
+                $file = $path.'page'.$file_name.'.gp';
 
-                $doc = new DOMDocument();
-                $doc_ = new DOMDocument();
-                $doc->loadHTMLFile($file);
-                $page = $doc->getElementById('pf'.dechex($file_name));
+                // $doc = new DOMDocument();
+                // $doc->loadHTMLFile($file);
+                $whetheriswhether = true;
+                // $content = $doc->saveHTML();
+                $f=fopen($file,"r");
+                $content =fgets($f);
 
-                if ($page) {
-                    $html_ = ($doc->saveHTML($page));
-                    $doc_->loadHTML('<?xml encoding="UTF-8">' .$html_);
-                    $img_ele = $doc_->getElementsByTagName('img');
-                    foreach ($img_ele as $key => $value) {
-                        $temp = $value->getAttribute('src');
-                        $value->setAttribute('src', $path.$temp);
-                    }
-
-                    $whetheriswhether = true;
-                    $content = $doc_->saveHTML();
-                }
             } catch (Exception $e) {
                 $whetheriswhether = false;
             }

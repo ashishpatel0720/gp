@@ -102,9 +102,10 @@ class Rest extends CI_Controller
 
                     $data = array(
                     'material_course_id'=> $course_id,
-                    'material_title'=>$upload_metadata->title,
+                    'material_title'=> ucfirst($upload_metadata->title),
+                    'material_alias'=> url_title($upload_metadata->title),
                     'material_description'=>$upload_metadata->description,
-                    'folder_path'=> FCPATH.'static/book_html/'.$file_name,
+                    'folder_path'=> $file_name,
                     'is_html' => 1,
                     'material_type' =>$material_type['STUDY'],
                     'material_created_at'=> date('Y-m-d H:i:s'),

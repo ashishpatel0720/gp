@@ -112,7 +112,6 @@
                         <a href="?<?php echo ''; ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a>
                         </li>
                         <?php
-
                         }
                         ?>
 

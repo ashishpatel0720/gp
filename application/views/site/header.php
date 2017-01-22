@@ -135,7 +135,7 @@
                                     <a href="/">Home   </a>
                                 </li>
                                 <li>
-                                    <a href="http://point.grabpustak.in">Grabpoint</a>
+                                  <a href="/courses">Courses</a>
                                 </li>
                                 <li>
                                     <a href="/books">Books</a>

@@ -216,7 +216,7 @@
                                                        <?php echo $value['material_description']; ?>
                                                   </td>
 
-                                                  <td class="center">  <?php echo date('d-M-Y',strtotime($value['material_created_at']));?> </td>
+                                                  <td class="center"><?php echo date('d-M-Y',strtotime($value['material_created_at']));?> </td>
                                                   <td>
                                                      <!-- <div class="btn-group">
                                                           <button class="btn btn-xs btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
@@ -235,7 +235,7 @@
                                                           </ul>
                                                       </div> -->
                                                     <div class="action_btns">
-                                                      <a href="/reader_html/view/" class="btn btn-outline btn-primary btn-sm"><i class="fa fa-link"></i> View </a>
+                                                      <a href="/reader_html/<?php echo $value['material_id'].'/'.$value['material_alias'] ?>" class="btn btn-outline btn-primary btn-sm"><i class="fa fa-link"></i> View </a>
                                                     </div>
                                                   </td>
                                               </tr>

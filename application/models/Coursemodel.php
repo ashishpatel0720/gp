@@ -89,6 +89,13 @@ class CourseModel extends CI_Model {
 			return $query->result_array();
 		}
 
+		public function getMaterialById($material_id){
+			$this->db->select('*');
+			$this->db->from('course_material');
+			$this->db->where('material_id',$material_id);
 
+ 			$query = $this->db->get();
+			return $query->row_array();
+		}
 
 }
