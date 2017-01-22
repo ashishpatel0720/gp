@@ -7,15 +7,7 @@ class UserModel extends CI_Model {
 
     }
     // users
-    public function getUser($email,$password)
-    {
-        $this->db->select('*');
-        $this->db->from('authors');
-        $this->db->where('a_email',$alias);
-        $this->db->limit(1);
-        $query = $this->db->get();
-        return $query->result_array();
-    }
+
     public function login($email, $password)
     {
         $this->db->where("user_email", $email);
@@ -80,5 +72,21 @@ class UserModel extends CI_Model {
         else return false;
     }
 
+    public function getCurrentPassword($user_id)
+    {
 
+        $query = $this->db->select('user_password')
+            ->where('user_id',$user_id)
+            ->get('users');
+
+        $user_data = $query->row_array();
+        return $user_data;
+    }
+
+    public function  updatePassword($new_password,$user_id)
+    {
+          return $this->db->set('user_password',$new_password)
+                     ->where('user_id',$user_id)
+                     ->update('users');
+    }
 }

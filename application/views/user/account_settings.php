@@ -737,21 +737,21 @@
 <!-- <script src="/static/site/datatable/extensions/Scroller/js/dataTables.scroller.min.js" charset="utf-8"></script> -->
 <script src="/static/site/js/jquery.slimscroll.min.js" charset="utf-8"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-    $("#tabs a").click(function(e){
-      e.preventDefault();
-      $(this).tab('show');
-      $('html,body').scrollTop(10);
-     });
-$("#tabs > li > a").on("shown.bs.tab", function(e) {
-  e.preventDefault();
-  var id = $(e.target).attr("href").substr(1);
-  window.location.hash = id;
-  $('html,body').scrollTop(10);
-});
-var hash = window.location.hash;
-$('#tabs  a[href="' + hash + '"]').tab('show');
-});
+    $(document).ready(function(){
+        $("#tabs a").click(function(e){
+            e.preventDefault();
+            $(this).tab('show');
+            $('html,body').scrollTop(10);
+        });
+        $("#tabs > li > a").on("shown.bs.tab", function(e) {
+            e.preventDefault();
+            var id = $(e.target).attr("href").substr(1);
+            window.location.hash = id;
+            $('html,body').scrollTop(10);
+        });
+        var hash = window.location.hash;
+        $('#tabs  a[href="' + hash + '"]').tab('show');
+    });
 </script>
 
 <script type="text/javascript">
@@ -786,7 +786,7 @@ $('#tabs  a[href="' + hash + '"]').tab('show');
         <!-- Page Content -->
         <div id="page-content-wrapper">
 
-             <div class="row profile-account">
+            <div class="row profile-account">
                 <div class="col-md-3">
                     <ul class="ver-inline-menu tabbable margin-bottom-10" id="tabs">
                         <li class="active">
@@ -811,17 +811,17 @@ $('#tabs  a[href="' + hash + '"]').tab('show');
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div id="tab_1-1" class="tab-pane active">
-                          <?php
-                          echo $this->session->flashdata('account_msg');
-                          $name = $this->session->userdata('USER_NAME');
-                          $name = explode(' ', $name);
-                          $first_name = $name[0];
-                          $last_name = $name[1];
-echo validation_errors();
- 
-                          if(empty($user_info)) $user_data = false;
-                          else $user_data = true;
-                          ?>
+                            <?php
+                            echo $this->session->flashdata('account_msg');
+                            $name = $this->session->userdata('USER_NAME');
+                            $name = explode(' ', $name);
+                            $first_name = $name[0];
+                            $last_name = $name[1];
+                            echo validation_errors();
+                            if(empty($user_info))
+                                $user_data = false;
+                            else $user_data = true;
+                            ?>
                             <form role="form" method="post" action="/user/account_settings">
                                 <div class="form-group">
                                     <label class="control-label">First Name</label>
@@ -836,12 +836,12 @@ echo validation_errors();
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Email
-                                     </label>
+                                    </label>
                                     <input type="text" placeholder="Enter email" class="form-control" readonly value="<?php echo $this->session->userdata('USER_MAIL'); ?>">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Mobile Number</label>
-                                     <span style="color:green;"> (+91) </span><input type="text" placeholder="Mob. No." name='user_phone'class="form-control"value="<?php if($user_data) echo $user_info['user_phone'];  ?>"> </div>
+                                    <span style="color:green;"> (+91) </span><input type="text" placeholder="Mob. No." name='user_phone'class="form-control"value="<?php if($user_data) echo $user_info['user_phone'];  ?>"> </div>
                                 <div class="form-group">
                                     <label class="control-label">Interests</label>
                                     <input type="text" placeholder="Design, Web etc." name='user_interests' class="form-control" value="<?php if($user_data)  echo $user_info['user_interests']; ?>"> </div>
@@ -860,7 +860,7 @@ echo validation_errors();
                                     "<?php if($user_data)   echo $user_info['user_facebook_id'];   ?>">
                                 </div>
 
-                                 <div class="margin-top-10">
+                                <div class="margin-top-10">
                                     <input type="submit" class="btn btn-primary">
                                     <a href="/user" class="btn btn-default"> Cancel </a>
                                 </div>
@@ -895,9 +895,10 @@ echo validation_errors();
                             </form>
                         </div>
                         <div id="tab_3-3" class="tab-pane">
+                            <?php echo validation_errors();?>
                             <div class="container" >
                                 <div class="row">
-                                    <form  action="/user/change_password" method="post">
+                                    <form  action="/user/change_password#tab_3-3" method="post">
                                         <div class="form-group">
                                             <label class="control-label">Current Password</label>
                                             <input type="password" class="form-control" name="current_password"> </div>

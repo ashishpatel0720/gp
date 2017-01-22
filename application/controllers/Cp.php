@@ -138,8 +138,7 @@ class Cp extends CI_Controller {
       }
         // $this->load->view('old/footer_admin_main');
     }
-
-        public function uploadHandler(){
+   public function uploadHandler(){
           if(!$this->loggedIn){
                   redirect('/cp/login','refresh');
               }
