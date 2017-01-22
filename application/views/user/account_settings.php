@@ -736,6 +736,23 @@
 <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script> -->
 <!-- <script src="/static/site/datatable/extensions/Scroller/js/dataTables.scroller.min.js" charset="utf-8"></script> -->
 <script src="/static/site/js/jquery.slimscroll.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#tabs a").click(function(e){
+      e.preventDefault();
+      $(this).tab('show');
+      $('html,body').scrollTop(10);
+     });
+$("#tabs > li > a").on("shown.bs.tab", function(e) {
+  e.preventDefault();
+  var id = $(e.target).attr("href").substr(1);
+  window.location.hash = id;
+  $('html,body').scrollTop(10);
+});
+var hash = window.location.hash;
+$('#tabs  a[href="' + hash + '"]').tab('show');
+});
+</script>
 
 <script type="text/javascript">
     $( document ).ready(function() {
@@ -772,7 +789,7 @@
             <br>
             <div class="row profile-account">
                 <div class="col-md-3">
-                    <ul class="ver-inline-menu tabbable margin-bottom-10">
+                    <ul class="ver-inline-menu tabbable margin-bottom-10" id="tabs">
                         <li class="active">
                             <a data-toggle="tab" href="#tab_1-1">
                                 <i class="fa fa-cog"></i> Personal info </a>
