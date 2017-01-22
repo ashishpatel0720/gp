@@ -785,9 +785,8 @@ $('#tabs  a[href="' + hash + '"]').tab('show');
         <?php $this->view('site/sidebar'); ?>
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <?php # if($flag) echo "SUCESS";else echo "FAILUREL"?>
-            <br>
-            <div class="row profile-account">
+
+             <div class="row profile-account">
                 <div class="col-md-3">
                     <ul class="ver-inline-menu tabbable margin-bottom-10" id="tabs">
                         <li class="active">
@@ -811,104 +810,58 @@ $('#tabs  a[href="' + hash + '"]').tab('show');
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
-                        <div id="tab_1-1" class="tab-pane active">                          
- <?php
-//           echo "<pre>";
-//           var_dump($this->session->userdata());
-//           echo "</pre>";
-                           if($this->session->userdata('is_updated')==true){ 
-                                 echo "<div class='alert alert-success'>Your data update successfully!!</div>";        
-                            }
-                            elseif($this->session->userdata('is_updated')===false){ 
-                                /**
-                                 * strict comparision because it will become null, when we want to get others to execute.
-                                 * NULL: when  
-                                 */
-                              echo "<div class='alert alert-info'> Fill the fields and submit to update your information.</div>";
-                            }    
-                            elseif($validation_flag && !$update_flag){
-                                echo "<div class='alert alert-warning'>Your data could not be updated!! Try again!!</div>";
-                            }
-                            elseif(!$validation_flag){
-                                 echo "<div class='alert alert-danger'>Please use following instructions to update your account!";
-                                  echo validation_errors(); 
-                                echo "</div>";
-                                  
-                            }
-                            $this->session->set_userdata('is_updated',null);#unset so that next time we start over
-                            ?>
+                        <div id="tab_1-1" class="tab-pane active">
+                          <?php
+                          echo $this->session->flashdata('account_msg');
+                          $name = $this->session->userdata('USER_NAME');
+                          $name = explode(' ', $name);
+                          $first_name = $name[0];
+                          $last_name = $name[1];
+echo validation_errors();
+ 
+                          if(empty($user_info)) $user_data = false;
+                          else $user_data = true;
+                          ?>
                             <form role="form" method="post" action="/user/account_settings">
                                 <div class="form-group">
                                     <label class="control-label">First Name</label>
-                                    <input type="text" placeholder="John" class="form-control" readonly value=
-                                    "<?php
-                                    if($this->session->userdata('USER_NAME')!=null) {
-                                        $fullname = explode(" ", $this->session->userdata('USER_NAME'));
-                                        echo $fullname[0];
-                                    }
-                                    ?>">
+                                    <input type="text" placeholder="John" class="form-control" readonly value="<?php
+                                    echo $first_name;   ?>">
                                 </div>
                                 <div class="form-group">
 
                                     <label class="control-label">Last Name</label>
                                     <input type="text" readonly placeholder="Doe" class="form-control" value=
-                                    "<?php
-                                    if($this->session->userdata('USER_NAME')!=null) {
-                                        $fullname = explode(" ", $this->session->userdata('USER_NAME'));
-                                        echo $fullname[2];
-                                    }
-                                    ?>">
+                                    "<?php echo $last_name; ?>">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Email
-                                        <?php
-
-
-                                        if($this->session->userdata('USER_VERIFIED')!=0)
-                                            echo "<span style='color:green; font-weight:lighter;'>(varified)</span>";
-                                        else echo "<span style='color:red; font-weight:lighter '>(not varified)</span>";?>
-                                    </label>
-                                    <input type="text" placeholder="user@example.com" class="form-control" readonly value=
-                                    "<?php
-                                    if($this->session->userdata('USER_MAIL')!=null) {
-                                        echo $this->session->userdata('USER_MAIL');
-                                    }
-                                    ?>">
+                                     </label>
+                                    <input type="text" placeholder="Enter email" class="form-control" readonly value="<?php echo $this->session->userdata('USER_MAIL'); ?>">
                                 </div>
-
                                 <div class="form-group">
                                     <label class="control-label">Mobile Number</label>
-                                     <span style="color:green;"> &nbsp;(+91) </span><input type="text" placeholder="9876543210" name='user_phone'class="form-control"value=
-                                    "<?php if($user_phone!=null)
-                                        echo $user_phone;
-                                    ?>"> </div>
+                                     <span style="color:green;"> (+91) </span><input type="text" placeholder="Mob. No." name='user_phone'class="form-control"value="<?php if($user_data) echo $user_info['user_phone'];  ?>"> </div>
                                 <div class="form-group">
                                     <label class="control-label">Interests</label>
-                                    <input type="text" placeholder="Design, Web etc." name='user_interests' class="form-control" value=
-                                    "<?php if($user_interests!=null)
-                                        echo $user_interests;
-                                    ?>"> </div>
+                                    <input type="text" placeholder="Design, Web etc." name='user_interests' class="form-control" value="<?php if($user_data)  echo $user_info['user_interests']; ?>"> </div>
                                 <div class="form-group">
                                     <label class="control-label">Website</label>
-                                    <input type="text" name='user_website' placeholder="example.com" class="form-control"value=
-                                    "<?php if($user_website!=null)
-                                        echo $user_website;
+                                    <input type="text" name='user_website' placeholder="example.com" class="form-control"value="<?php if($user_data)
+                                        echo $user_info['user_website'];
                                     ?>"> </div>
                                 <div class="form-group">
                                     <label class="control-label">Twitter</label>
-                                    <input type="text" name='user_twitter_id' placeholder="grabpustak for http://www.twitter.com/grabpustak" class="form-control"value=
-                                    "<?php if($user_twitter_id!=null)
-                                        echo $user_twitter_id;
-                                    ?>"> </div>
+                                    <input type="text" name='user_twitter_id' placeholder="Twitter user ID" class="form-control"value=
+                                    "<?php if($user_data)   echo $user_info['user_twitter_id'];   ?>"> </div>
                                 <div class="form-group">
                                     <label class="control-label">Facebook</label>
-                                    <input type="text" name='user_facebook_id' placeholder="grabpustak for http://www.facebook.com/grabpustak" class="form-control"value=
-                                    "<?php if($user_facebook_id!=null)
-                                        echo $user_facebook_id;
-                                    ?>"> </div>
+                                    <input type="text" name='user_facebook_id' placeholder="Facebook username" class="form-control"value=
+                                    "<?php if($user_data)   echo $user_info['user_facebook_id'];   ?>">
+                                </div>
 
-                                <div class="margiv-top-10">
-                                    <input type="submit" class="btn btn-primary"> &nbsp;&nbsp;&nbsp;&nbsp;
+                                 <div class="margin-top-10">
+                                    <input type="submit" class="btn btn-primary">
                                     <a href="/user" class="btn btn-default"> Cancel </a>
                                 </div>
                             </form>

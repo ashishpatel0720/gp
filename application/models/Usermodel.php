@@ -49,13 +49,15 @@ class UserModel extends CI_Model {
         $this->db->where('user_id',$user_id);
         $this->db->limit(1);
         $query = $this->db->get();
-        return $query->result_array();
+        if ($query->num_rows() == 1)
+        {
+        return $query->row_array();
+        }
+      return false;
     }
-    public function savePublisher($data){
-     
-        if(($this->db->insert('users', $data))&& $this->db->insert('user_information',array('user_id'=>$this->db->insert_id())))
-            return $this->db->insert_id();
-         else return false;
+    public function saveUser($data){
+        if($this->db->insert('users', $data))   return $this->db->insert_id();
+        return false;
     }
 
     public function saveCourse($data){
@@ -66,7 +68,7 @@ class UserModel extends CI_Model {
     public function saveAccountSettings($data){
         if($this->db->insert('user_information', $data))
             return $this->db->insert_id();
-        
+
         else return false;
     }
 
