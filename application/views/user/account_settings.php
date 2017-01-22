@@ -1,5 +1,5 @@
-
-
+<script type="javascript" src="/static/site/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+<link rel="stylesheet" href="/static/site/jasny-bootstrap/css/jasny-bootstrap.min.css">
 <style media="screen">
     .profile,.profile-classic .profile-image {
         position: relative

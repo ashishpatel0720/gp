@@ -87,11 +87,9 @@ class User extends CI_Controller {
 			{
 				$userdata = $this->usermodel->login(strtolower($_POST['email']), $this->user_password_hash($_POST['password']));
 				if($userdata){
-					$this->session->set_userdata($userdata);
-					$userinfo = $this->usermodel->getUserInfo($session['USER_ID']);
-					if(!empty($userinfo))  $this->session->set_userdata($userinfo);
+					if(!empty($userinfo))
+						$this->session->set_userdata($userinfo);
 					redirect('/user/dashboard');
-
 				}else{
 					$this->load->view('site/header',$this->header_data);
 					$this->load->view('user/login',$data);
@@ -182,12 +180,12 @@ class User extends CI_Controller {
 					'alpha_numerica'=>"%s could contain only alphabet and numbers ",
 					'match'=>'Password does not match.'
 				));
-             $user_id=$this->session->userdata("USER_ID");
+			$user_id=$this->session->userdata("USER_ID");
 			if($this->form_validation->run()==TRUE)
 			{
 
 				$new_password=$this->input->post('new_password_1');
-                $new_hashed_password=$this->user_password_hash($new_password);
+				$new_hashed_password=$this->user_password_hash($new_password);
 
 				$flag=$this->usermodel->updatePassword($new_hashed_password,$user_id);
 				if($flag){
@@ -202,7 +200,7 @@ class User extends CI_Controller {
 					$this->load->view("/site/footer");
 				}
 			}
-			
+
 			else{
 
 				$this->load->view("/site/header");
@@ -225,11 +223,11 @@ class User extends CI_Controller {
 
 		if ($current_hashed_password==$db_password)
 		{
- 
+
 			return TRUE;
 		}
 
-			return FALSE;
+		return FALSE;
 
 	}
 
