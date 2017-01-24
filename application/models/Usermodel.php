@@ -11,7 +11,7 @@ class UserModel extends CI_Model {
     public function login($email, $password)
     {
         $this->db->where("user_email", $email);
-        //$this->db->where("user_password", $password);
+        $this->db->where("user_password", $password);
         // $this->db->where("user_verified", 1);
         $query = $this->db->get("users");
         $userdata = array();
