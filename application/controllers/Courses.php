@@ -22,6 +22,8 @@ class Courses extends CI_Controller
         parent::__construct();
         $this->load->helper('form');
         $this->load->model('usermodel');
+        $this->load->model('restmodel');
+        $this->load->model('coursemodel');
 
         $this->load->model('bookmodel');
 
@@ -30,10 +32,39 @@ class Courses extends CI_Controller
         if (isset($_SESSION['USER_ID']) && !empty($_SESSION['USER_ID'])) {
             $this->loggedIn = true;
         }
-     }
+    }
+
 
     public function index()
     {
+
+        $this->header_data['page_title'] = "Course List | Grabpustak";
+        $this->header_data['meta_title'] = "Course List | Grabpustak ";
+        $this->header_data['description']="Grabpustak is the online repository for books. Which contains the large variety of children, college books and large dataset of the nobels.";
+
+        // calculate the type of the book which is a comma separated parameter
+
+        $config["total_rows"] = $this->coursemodel->recordCount(false);
+
+        $config["per_page"] = 8;
+
+        $choice = $config["total_rows"] / $config["per_page"];
+
+        $config["num_links"] = round($choice);
+        $page = ($this->input->get('page', true))? $this->input->get('page', true) : 1;
+
+        $start = ($page-1)* $config['per_page'];
+
+        $course_data["links"] = $config['num_links'];
+
+        $course_data['vard'] = $config["num_links"];
+
+        $course_data['courses'] = $this->coursemodel->getCoursesByLimit($config["per_page"], $start);
+        // var_dump($course_data);
+        // exit;
+        $this->load->view('site/header', $this->header_data);
+        $this->load->view('courses/course_list', $course_data);
+        $this->load->view('site/footer');
     }
 
 
@@ -57,7 +88,7 @@ class Courses extends CI_Controller
             );
             $insert_id = $this->usermodel->saveCourse($data);
             if ($insert_id) {
-                redirect('/course/'.$insert_id.'/'.$alias, 'refresh');
+                redirect('/courses/view/'.$insert_id.'/'.$alias, 'refresh');
             }
         } else {
             $this->load->view('site/header', $this->header_data);
@@ -72,11 +103,43 @@ class Courses extends CI_Controller
         $this->load->view('courses/my_courses_1');
         $this->load->view('site/footer');
     }
-    public function course(){
-      $this->load->view('site/header', $this->header_data);
-      $this->load->view('courses/course_detail');
-      $this->load->view('site/footer');
+
+
+    private function generateToken($user_id)
+    {
+        $salt = random_string('alnum', 16);
+        $salt1 = strrev(md5($user_id));
+        return hash('SHA512', ($salt.'GPIO'.$salt1));
     }
+
+
+    public function view()
+    {
+      $this->load->view('site/header', $this->header_data);
+      $course_id = $this->uri->segment(3);
+
+      $data['course_data'] = $this->coursemodel->getCourseById($course_id);
+      $data['study_material'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['STUDY']);
+      $data['assignments'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['ASSIGNMENT']);
+      $data['syllabus'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['SYLLABUS']);
+
+      if (!$this->loggedIn) {
+        $this->load->view('courses/course_detail_view', $data);
+      }else{
+        $user = $this->session->userdata('USER_ID');
+        $user_ = $user+20000;
+        $this->load->helper('string');
+        $token = $this->generateToken($user);
+        $save =  $this->restmodel->saveToken($user, $token);
+      // redirect("http://upload.grabpustak.com/cp?auth=$token.'&'.$user");
+
+        $data['upload_url'] = "http://gpapi/cp/upload_book?auth=$token&user=$user_&course=$course_id";
+        $this->load->view('courses/course_detail_edit', $data);
+      }
+        $this->load->view('site/footer');
+    }
+
+
 }
 
 /* End of file Courses.php */

@@ -13,7 +13,8 @@ $route['browse'] = 'books/search';
 $route['books'] = 'books/search';
 $route['reader/:any'] = 'books/reader/$1';
 
-$route['reader_html/:any'] = 'books/reader_html/$1';
+// $route['reader_html/:any'] = 'books/reader_html/$1';
+$route['reader_html/:any/:any'] = 'reader/reader_html_material/$1';
 $route['reader_html/:any/content/:any/:any'] = 'handler/page_html/$1';
 $route['load'] = 'books/loadAds';
 $route['books/:any/content/:any/:any'] = 'handler/page/$1';
@@ -32,4 +33,4 @@ $route['alumni'] = 'base/team';
 // $route['(:any)'] = 'home/$1';
 
 
-$route['courses'] = 'courses/course';
+// $route['courses'] = 'courses/course/$1';

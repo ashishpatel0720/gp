@@ -24,13 +24,8 @@ class Base extends CI_Controller
         $this->load->model('bookmodel');
 
         $this->load->library('form_validation');
-        $this->categories= [];
-        // $this->output->cache(3);
-        $books = $this->bookmodel->fetchCategories();
-        foreach ($books as $key => $value) {
-            $this->categories[$value['main_category_title']][$value['sub_category_title']][] = $value['subject_title'];
-        }
-        $this->header_data['categories'] = $this->categories;
+
+       $this->header_data['categories'] = load_categories();
     }
     public function index()
     {
@@ -50,9 +45,6 @@ class Base extends CI_Controller
         $this->header_data['page_title'] = "About Us";
         $this->header_data['meta_title'] = "About Us";
         $this->header_data['description']="Grabpustak is the online repository for books. Which contains the large variety of children, college books and large dataset of the nobels.";
-        $this->footer_data['facebook'] = true;
-        $this->footer_data['map'] = true;
-
 
         $this->load->view('site/header', $this->header_data);
         $this->load->view('site/about');
@@ -63,8 +55,6 @@ class Base extends CI_Controller
         $this->header_data['page_title'] = "Contact Us";
         $this->header_data['meta_title'] = "Contact Us";
         $this->header_data['description']="Contact us for any query or doubt.";
-        $this->footer_data['facebook'] = true;
-        $this->footer_data['map'] = true;
 
         $this->load->view('site/header', $this->header_data);
         $this->load->view('site/contact');

@@ -26,9 +26,7 @@ class Books extends CI_Controller
 
         // model
         $this->load->model('bookmodel');
-
-        // enable to cache pages
-        // $this->output->cache(3);
+        
 
         $this->header_data['categories'] = load_categories();
         $this->hash_length = $this->config->item('hash_length_session');
@@ -265,8 +263,7 @@ class Books extends CI_Controller
 
     public function loadAds()
     {
-        error_reporting(1);
-        $ads_data = $this->bookmodel->getAd();
+         $ads_data = $this->bookmodel->getAd();
         echo $this->output->set_content_type('application/json')->set_output(json_encode($ads_data));
     }
 
