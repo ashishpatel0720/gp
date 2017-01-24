@@ -780,23 +780,6 @@
 </script>
 
 
-<script type="text/javascript">
-$(document).ready(function(){
-    $("#tabs a").click(function(e){
-      e.preventDefault();
-      $(this).tab('show');
-      $('html,body').scrollTop(0);
-     });
-$("#tabs > li > a").on("shown.bs.tab", function(e) {
-  e.preventDefault();
-  var id = $(e.target).attr("href").substr(1);
-  window.location.hash = id;
-  $('html,body').scrollTop(0);
-});
-var hash = window.location.hash;
-$('#tabs  a[href="' + hash + '"]').tab('show');
-});
-</script>
 <main class="site-main">
     <div id="wrapper">
         <?php $this->view('site/sidebar'); ?>
@@ -828,40 +811,24 @@ $('#tabs  a[href="' + hash + '"]').tab('show');
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div id="tab_1-1" class="tab-pane active">
-
-                          <form role="form" class action="/user/accout_settings">
-                            <div class="form-group">
-                                <label class="control-label">First Name</label>
-                                <input type="text" placeholder="John" class="form-control" value="<?php /*  $name=explode(' ',$this->session->userdata('USER_NAME'));
-                                        echo trim($name[0]);
-                                        // echo implode("#",$name);
-                               */?>">
-                               </div>
-                            <div class="form-group">
-
-                                <label class="control-label">Last Name</label>
-                                <input type="text" placeholder="Doe" class="form-control" value="<?php /*  $name=explode(' ',$this->session->userdata('USER_NAME'));
-                                       echo trim($name[2]);
-                               */?>"> </div>
-                            <div class="form-group">
-                                <label class="control-label">Mobile Number</label>
-                                <input type="text" placeholder="+1 646 580 DEMO (6284)" class="form-control"value="<?php /* echo $this->session->userdata('USER_PHONE');
-                               */?>"> </div>
-                            <div class="form-group">
-                                <label class="control-label">Interests</label>
-                                <input type="text" placeholder="Design, Web etc." class="form-control" value="<?php /* echo $this->session->userdata('USER_INTERESTS');
-                               */?>">
-                           </div>
-                            <div class="form-group">
-                                <label class="control-label">Twitter</label>
-                                <input type="text" placeholder="http://www.twitter.com/myid" class="form-control"value="<?php /* echo $this->session->userdata('USER_TWITTER_ID');
-                               */?>">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Facebook</label>
-                                <input type="text" placeholder="http://www.facebook.com/myid" class="form-control"value="<?php /* echo $this->session->userdata('USER_PHONE');
-                               */?>">
-                            </div>
+                            <?php
+                            echo $this->session->flashdata('account_msg');
+                            $name = $this->session->userdata('USER_NAME');
+                            $name = explode(' ', $name);
+                            $first_name = $name[0];
+                            $last_name = $name[2];
+                            echo validation_errors();
+                            if(empty($user_info))
+                                $user_data = false;
+                            else $user_data = true;
+                            ?>
+                            <form role="form" method="post" action="/user/account_settings">
+                                <div class="form-group">
+                                    <label class="control-label">First Name</label>
+                                    <input type="text" placeholder="John" class="form-control" readonly value="<?php
+                                    echo $first_name;   ?>">
+                                </div>
+                                <div class="form-group">
 
                                     <label class="control-label">Last Name</label>
                                     <input type="text" readonly placeholder="Doe" class="form-control" value=
@@ -894,8 +861,8 @@ $('#tabs  a[href="' + hash + '"]').tab('show');
                                 </div>
 
                                 <div class="margin-top-10">
-                                    <input type="submit" class="btn btn-primary">
-                                    <a href="/user" class="btn btn-default"> Cancel </a>
+                                    <input type="submit" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="/user" class="btn btn-danger"> Cancel </a>
                                 </div>
                             </form>
                         </div>
@@ -1024,6 +991,10 @@ $('#tabs  a[href="' + hash + '"]').tab('show');
                 </div>
                 <!--end col-md-9-->
             </div>
+
+
+
+
         </div>
     </div>
 </main>

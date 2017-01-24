@@ -688,8 +688,11 @@
 </script>
 
 <?php
-if(!empty($user_info)) $user_data = false;
-else $user_data = $user_info;
+if(empty($user_info))
+    $user_data = false;
+else
+    $user_data = $user_info;
+
 ?>
 
 
@@ -751,7 +754,7 @@ else $user_data = $user_info;
                                     </a>
                                 </div>
                                 <div class="margin-top-20 profile-desc-link">
-                                    <i class="fa fa-facebook"></i><?php if($user_data) echo '<a href="https://facebook.com/'.$user_data['$user_facebook_id'].'">'.$user_data['user_facebook_id'].'</a>';
+                                    <i class="fa fa-facebook"></i><?php if($user_data) echo '<a href="https://facebook.com/'.$user_data['user_facebook_id'].'">'.$user_data['user_facebook_id'].'</a>';
                                     else echo "<a href='/user/account_settings'>Add Now</a>"?>
                                     </a>
                                 </div>
