@@ -60,8 +60,11 @@ class Courses extends CI_Controller
         $course_data['vard'] = $config["num_links"];
 
         $course_data['courses'] = $this->coursemodel->getCoursesByLimit($config["per_page"], $start);
-        // var_dump($course_data);
-        // exit;
+      
+        #author - ashish patel 
+        $course_data['enrolled_array']=$this->coursemodel->getEnrolledCourses($this->session->userdata("USER_ID"));
+
+        ########
         $this->load->view('site/header', $this->header_data);
         $this->load->view('courses/course_list', $course_data);
         $this->load->view('site/footer');

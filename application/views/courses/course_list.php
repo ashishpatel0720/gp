@@ -137,8 +137,23 @@
                           <!-- <div class="post-thumb-wrap"><img src="img/blog/bp2.jpg" alt="Blog 2 Thumb"> -->
                               <!-- <div class="post-meta-info"><span class="post-meta-date">Merch 14, 2015</span></div> -->
                           <!-- </div> -->
-                          <div class="post-content-wrap">
+                          <div class="post-content-wrap">se-Id
                               <h2 class="mdl-card__title-text mdl-card__title-content"><a href="/courses/view/<?php echo $value['course_id']; ?>/<?php echo $value['course_alias']; ?>"><?php echo $value['course_title']; ?></a></h2>
+                          <?php
+
+
+                               if($enrolled_array && in_array($value['course_id'],$enrolled_array)){
+                                   echo " <a href='#'><div class='label label-success'>enrolled</div></a>";
+
+                               }
+                                 else{
+                                    
+                                     echo "<a href='#'><div class='label label-info'>enroll now</div></a>";
+
+                                 }
+                           ?>
+
+                             
                               <div class="mdl-card__supporting-text">
                                   <p>
                                     <?php echo $value['course_description'];?>
