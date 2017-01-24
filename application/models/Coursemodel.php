@@ -53,5 +53,49 @@ class CourseModel extends CI_Model {
     		else return false;
     }
 
+		public function saveToken($user_id,$token){
+			$data = array('hash' => $token);
+			$this->db->where('user_id', $user_id);
+			return $this->db->update('users', $data);
+		}
+
+		public function recordCount($keyword=false){
+			$query = $this->db->get('courses');
+			return $query->num_rows();
+		}
+
+		public function getCoursesByLimit($limit,$start=0){
+			$this->db->select('*');
+			$this->db->from('courses');
+			$this->db->limit($limit,$start);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+		public function getCourseById($id){
+			$this->db->select('*');
+			$this->db->from('courses');
+			$this->db->where('course_id',$id);
+			$query = $this->db->get();
+			return $query->row_array();
+		}
+
+		public function getMaterialByIdType($course_id,$material_type = null){
+			$this->db->select('*');
+			$this->db->from('course_material');
+			$this->db->where('material_course_id',$course_id);
+
+			if(!empty($material_type)) $this->db->where('material_type',$material_type);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function getMaterialById($material_id){
+			$this->db->select('*');
+			$this->db->from('course_material');
+			$this->db->where('material_id',$material_id);
+
+ 			$query = $this->db->get();
+			return $query->row_array();
+		}
 
 }

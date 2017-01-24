@@ -1,32 +1,3 @@
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#assignment_table').DataTable( {
-        "scrollY":        "400px",
-        "scrollCollapse": true,
-        "paging":         false,
-         "dom": '<"toolbar_assignment toolbar">frtip',
-    });
-    $("div.toolbar_assignment").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#assignment_modal">Add new Assignment</button>');
-    $('#syllabus_table').DataTable( {
-        "scrollY":        "400px",
-        "scrollCollapse": true,
-        "paging":         false,
-         "dom": '<"toolbar_syllabus toolbar">frtip',
-    });
-     $("div.toolbar_syllabus").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#syllabus_modal">Add new syllabus</button>');
-
-     $('#study_table').DataTable( {
-         "scrollY":        "400px",
-         "scrollCollapse": true,
-         "paging":         false,
-          "dom": '<"toolbar_study toolbar">frtip',
-     });
-      $("div.toolbar_study").html('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#study_modal">Add new syllabus</button>');
-
-
-});
-</script>
-
 <style media="screen">
   #file{
     padding: 10px;
@@ -40,8 +11,9 @@ $(document).ready(function() {
 
 
     <div class="col-md-12 profile-info">
-        <h1 class="sbold uppercase">Course Title</h1>
-        <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt laoreet dolore magna aliquam tincidunt erat volutpat laoreet dolore magna aliquam tincidunt erat volutpat.
+        <h1 class="sbold uppercase"><?php echo $course_data['course_title'];?> </h1>
+        <p>
+          <?php echo $course_data['course_description'];?>
         </p>
         <!-- <ul class="list-inline">
             <li>
@@ -80,11 +52,12 @@ $(document).ready(function() {
                           <div class="tab-pane active" id="tab_1_1">
 
                               <div class="table-scrollable">
+                                <?php if(!empty($assignments)){ ?>
                                   <table class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer" id="assignment_table" data-height="400px" role="grid" aria-describedby="sample_1_info">
                                       <thead>
                                           <tr role="row">
                                               <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 10px;">S.No</th>
-                                              <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label=" Username : activate to sort column descending"> Course </th>
+                                              <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label=" Username : activate to sort column descending"> Title </th>
                                               <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Email : activate to sort column ascending"> Description </th>
                                               <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Status : activate to sort column ascending"> Status </th>
                                               <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Joined : activate to sort column ascending"> Creation Date </th>
@@ -92,20 +65,23 @@ $(document).ready(function() {
                                           </tr>
                                       </thead>
                                       <tbody>
+                                        <?php
+                                        foreach ($assignments as $key => $value) {
+                                        ?>
                                           <tr class="gradeX odd" role="row">
                                               <td>
                                                 1.
                                               </td>
-                                              <td class="sorting_1"> Thermodynamics -II </td>
+                                              <td class="sorting_1"> <?php echo $value['material_title']; ?> </td>
                                               <td>
-                                                  ThermoDynamics-II Detail Short
+                                                   <?php echo $value['material_description']; ?>
                                               </td>
                                               <td>
-                                                  <span class="label label-sm label-info"> active </span>
+                                                  <span class="label label-sm label-info"><?php echo $this->config->item('material_status')[$value['material_status']]; ?> </span>
                                               </td>
-                                              <td class="center"> 06-Jan-2017 </td>
+                                              <td class="center">  <?php echo date('d-M-Y',strtotime($value['material_created_at']));?> </td>
                                               <td>
-                                                  <!-- <div class="btn-group">
+                                                 <!-- <div class="btn-group">
                                                       <button class="btn btn-xs btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
                                                           <i class="fa fa-angle-down"></i>
                                                       </button>
@@ -116,103 +92,168 @@ $(document).ready(function() {
                                                           </li>
                                                           <li>
                                                               <a href="javascript:;">
-                                                                  <i class="icon-tag"></i> New Assignment </a>
-                                                          </li>
-                                                          <li>
-                                                              <a href="javascript:;">
-                                                                  <i class="icon-user"></i> Upload File </a>
+                                                                  <i class="icon-user"></i> Submit Now </a>
                                                           </li>
                                                           <li class="divider"> </li>
-                                                          <li>
-                                                              <a href="javascript:;">
-                                                                  <i class="icon-flag"></i> View Feed
-                                                                  <span class="badge badge-success">4</span>
-                                                              </a>
-                                                          </li>
                                                       </ul>
                                                   </div> -->
                                                 <div class="action_btns">
                                                   <a href="#" class="btn btn-outline btn-primary btn-sm"><i class="fa fa-link"></i> View </a>
-                                                  <a href="#" id=""  class="btn btn-outline btn-danger btn-sm"><i class="fa fa-edit"></i> Edit </a>
+                                                  <a href="#" id=""  class="btn btn-outline btn-danger btn-sm"><i class="fa fa-edit"></i> Submit Now </a>
                                                   <a href="#" id=""  class="btn btn-outline btn-success btn-sm"><i class="fa fa-download"></i> Download </a>
                                                 </div>
                                               </td>
                                           </tr>
 
+                                          <?php
+                                        }
+                                          ?>
+
                                       </tbody>
                                   </table>
+                                  <?php  } else{
+                                    echo 'Assignments not available.';
+                                  }?>
                               </div>
                           </div>
                           <!-- END Assignment TAB -->
                           <!-- Syllabus TAB -->
                           <div class="tab-pane" id="tab_1_2">
                               <div class="table-scrollable">
+                                <?php  if(!empty($syllabus)){?>
                                   <table class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer" id="syllabus_table" data-height="400px" role="grid" aria-describedby="sample_1_info">
                                       <thead>
                                           <tr role="row">
                                               <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 10px;">
                                               S.No.
                                               </th>
-                                              <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label=" Username : activate to sort column descending"> Course </th>
-                                               <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Joined : activate to sort column ascending"> Creation Date </th>
+                                              <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="activate to sort column descending"> Title </th>
+                                              <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label=" activate to sort column descending"> Decription </th>
+                                               <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Created : activate to sort column ascending"> Creation Date </th>
                                               <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Actions : activate to sort column ascending"> Actions </th>
                                           </tr>
                                       </thead>
                                       <tbody>
+                                        <?php
+                                        foreach ($syllabus as $key => $value) {
+                                        ?>
                                           <tr class="gradeX odd" role="row">
                                               <td>
-                                               1.
+                                                1.
                                               </td>
-                                              <td class="sorting_1"> Thermodynamics -II </td>
-                                              <td class="center"> 06-Jan-2017 </td>
+                                              <td class="sorting_1"> <?php echo $value['material_title']; ?> </td>
                                               <td>
+                                                   <?php echo $value['material_description']; ?>
+                                              </td>
+
+                                              <td class="center">  <?php echo date('d-M-Y',strtotime($value['material_created_at']));?> </td>
+                                              <td>
+                                                 <!-- <div class="btn-group">
+                                                      <button class="btn btn-xs btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                                          <i class="fa fa-angle-down"></i>
+                                                      </button>
+                                                      <ul class="dropdown-menu" role="menu">
+                                                          <li>
+                                                              <a href="javascript:;">
+                                                                  <i class="icon-docs"></i> View Detail </a>
+                                                          </li>
+                                                          <li>
+                                                              <a href="javascript:;">
+                                                                  <i class="icon-user"></i> Submit Now </a>
+                                                          </li>
+                                                          <li class="divider"> </li>
+                                                      </ul>
+                                                  </div> -->
                                                 <div class="action_btns">
                                                   <a href="#" class="btn btn-outline btn-primary btn-sm"><i class="fa fa-link"></i> View </a>
-                                                  <a href="#" id=""  class="btn btn-outline btn-danger btn-sm"><i class="fa fa-edit"></i> Edit </a>
                                                   <a href="#" id=""  class="btn btn-outline btn-success btn-sm"><i class="fa fa-download"></i> Download </a>
-                                               <!-- <a href="javascript:;" class="btn btn-outline btn-circle btn-sm red deletebtn"><i class="fa fa-edit"></i> Delete </a> -->
-                                              </div>
+                                                </div>
                                               </td>
                                           </tr>
 
+                                          <?php
+                                        }
+                                          ?>
+
                                       </tbody>
+
+
+
+
                                   </table>
+                                  <?php  } else{
+                                    echo 'Syllabus not available.';;
+                                  }?>
                               </div>
                           </div>
                           <!-- END Syllabus  TAB -->
                           <!-- Study Material TAB -->
                           <div class="tab-pane" id="tab_1_3">
                                 <div class="table-scrollable">
+                                      <?php  if(!empty($study_material)){?>
                                     <table class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer" id="study_table" data-height="400px" role="grid" aria-describedby="study Material">
                                         <thead>
                                             <tr role="row">
                                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width:10px;">
                                                   S.No.
                                                 </th>
-                                                <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label=" Username : activate to sort column descending"> Course </th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label=" activate to sort column descending"> Title </th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label=" activate to sort column descending"> Description </th>
                                                  <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Joined : activate to sort column ascending"> Creation Date </th>
                                                 <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Actions : activate to sort column ascending"> Actions </th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="gradeX odd" role="row">
-                                                <td>
-                                                  1.
-                                                </td>
-                                                <td class="sorting_1"> Thermodynamics -II </td>
-                                                <td class="center"> 06-Jan-2017 </td>
-                                                <td>
-                                                  <div class="action_btns">
-                                                    <a href="#" class="btn btn-outline btn-primary btn-sm"><i class="fa fa-link"></i> View </a>
-                                                    <a href="#" id=""  class="btn btn-outline btn-danger btn-sm"><i class="fa fa-edit"></i> Edit </a>
-                                                    <a href="#" id=""  class="btn btn-outline btn-success btn-sm"><i class="fa fa-download"></i> Download </a>
-                                                 <!-- <a href="javascript:;" class="btn btn-outline btn-circle btn-sm red deletebtn"><i class="fa fa-edit"></i> Delete </a> -->
-                                                </div>
-                                                </td>
-                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <?php
+                                            foreach ($study_material as $key => $value) {
+                                            ?>
+                                              <tr class="gradeX odd" role="row">
+                                                  <td>
+                                                  <?php echo $key+1; ?>.
+                                                  </td>
+                                                  <td class="sorting_1"> <?php echo $value['material_title']; ?> </td>
+                                                  <td>
+                                                       <?php echo $value['material_description']; ?>
+                                                  </td>
 
-                                        </tbody>
+                                                  <td class="center"><?php echo date('d-M-Y',strtotime($value['material_created_at']));?> </td>
+                                                  <td>
+                                                     <!-- <div class="btn-group">
+                                                          <button class="btn btn-xs btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                                              <i class="fa fa-angle-down"></i>
+                                                          </button>
+                                                          <ul class="dropdown-menu" role="menu">
+                                                              <li>
+                                                                  <a href="javascript:;">
+                                                                      <i class="icon-docs"></i> View Detail </a>
+                                                              </li>
+                                                              <li>
+                                                                  <a href="javascript:;">
+                                                                      <i class="icon-user"></i> Submit Now </a>
+                                                              </li>
+                                                              <li class="divider"> </li>
+                                                          </ul>
+                                                      </div> -->
+                                                    <div class="action_btns">
+                                                      <a href="/reader_html/<?php echo $value['material_id'].'/'.$value['material_alias'] ?>" class="btn btn-outline btn-primary btn-sm"><i class="fa fa-link"></i> View </a>
+                                                    </div>
+                                                  </td>
+                                              </tr>
+
+                                              <?php
+                                            }
+                                              ?>
+
+                                          </tbody>
+
+
+
+
+
                                     </table>
+                                    <?php  } else{
+                                      echo 'Study material not available.';
+                                    }?>
                                 </div>
                             </div>
 

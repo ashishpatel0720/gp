@@ -87,7 +87,7 @@ class User extends CI_Controller {
 			{
 				$userdata = $this->usermodel->login(strtolower($_POST['email']), $this->user_password_hash($_POST['password']));
 				if($userdata){
-						$this->session->set_userdata($userdata);
+					$this->session->set_userdata($userdata);
 					redirect('/user/dashboard');
 				}else{
 					$this->load->view('site/header',$this->header_data);
@@ -101,7 +101,7 @@ class User extends CI_Controller {
 			}
 		}else{
 
- 			$this->load->view('site/header',$this->header_data);
+			$this->load->view('site/header',$this->header_data);
 			$this->load->view('user/login',$data);
 			$this->load->view('site/footer');
 		}

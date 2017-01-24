@@ -128,6 +128,7 @@
     <!-- Main -->
     <script type="text/javascript" src="<?php echo $this->config->item('site_url'); ?>static/site/js/main.js"></script>
     <script type="text/javascript" src="<?php echo $this->config->item('site_url'); ?>static/site/js/blazy.min.js"></script>
+    <script type="text/javascript" src="<?php echo $this->config->item('site_url'); ?>static/site/mdl/material.min.js"></script>
 
 
 
@@ -145,7 +146,7 @@
   })();
 
   var bLazy = new Blazy({
-        selector: 'img' 
+        selector: 'img'
         // all images
     });
 
