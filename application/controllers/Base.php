@@ -74,10 +74,10 @@ class Base extends CI_Controller
         if (!empty($_POST)) {
             $this->form_validation->set_rules('name', 'Name', 'trim|required|max_length[50]|alpha_numeric_spaces',
                 [
-                'required' => '%s is required.',
-                'max_length' => '%s must be of maximum 50 characters.',
-                'alpha' => '%s must contain only alphabet characters and spaces'
-            ]);
+                    'required' => '%s is required.',
+                    'max_length' => '%s must be of maximum 50 characters.',
+                    'alpha' => '%s must contain only alphabet characters and spaces'
+                ]);
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email', [
                 'required' => '%s is required.'
             ]);
@@ -115,7 +115,7 @@ class Base extends CI_Controller
                     'message' => $message,
                     'mobile'=>$mobile,
                     'place'=>$place
-                   ];
+                ];
 
                 $result = $this->basemodel->saveContactMessage($contact_data);
                 if ($result)
