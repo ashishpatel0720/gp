@@ -101,7 +101,7 @@ class CourseModel extends CI_Model {
 	public function getEnrolledCourses($user_id)
 	{
 		$query=$this->db->select('course_id')
-			->where('student_id',$user_id)
+			->where(['user_id'=>$user_id,'is_enrolled'=>'1'])
 			->get('enrollments');
 		if($query->num_rows()==0)
 			return false;
@@ -112,6 +112,45 @@ class CourseModel extends CI_Model {
 			}
 			return $course_array;
 		}
+	}
+
+	/**
+	 * this function add enrollment for a user
+	 * it sets to 1 if it is 0
+	 * else insert an entry in enrollement table
+	 * return false if failure
+	 */
+	public function insertEnrollment($data)
+	{
+		return $this->db->insert('enrollments',$data);
+	}
+
+	public function setEnrollment($user_id,$course_id)
+	{
+		return $this->db->set('is_enrolled',1)
+			->where(['user_id'=>$user_id,'course_id'=>$course_id])
+			->update('enrollments');
+	}
+
+	public function unsetEnrollment($user_id,$course_id)
+	{
+		return $this->db->set('is_enrolled',0)
+			->where(['user_id'=>$user_id,'course_id'=>$course_id])
+			->update('enrollments');
+	}
+	/**
+	 * this function returns 1 if enrollment entry exist for a user,
+	 * return false if not exists.
+	 * else true
+	 */
+	public function isEnrollmentEntryExists($user_id,$course_id)
+	{
+		$sql="select enrollment_id from enrollments where user_id=? and course_id=?";
+		$query=$this->db->query($sql,[$user_id, $course_id]);
+		if($query->num_rows()==1)  # if entry exists in db
+			return true;
+		else
+			return false;
 	}
 
 }

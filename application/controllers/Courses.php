@@ -9,9 +9,9 @@
  *
  */
 
- if (! defined('BASEPATH')) {
-     exit('No direct script access allowed');
- }
+if (! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 class Courses extends CI_Controller
 {
@@ -60,7 +60,6 @@ class Courses extends CI_Controller
         $course_data['vard'] = $config["num_links"];
 
         $course_data['courses'] = $this->coursemodel->getCoursesByLimit($config["per_page"], $start);
-      
         #author - ashish patel 
         $course_data['enrolled_array']=$this->coursemodel->getEnrolledCourses($this->session->userdata("USER_ID"));
 
@@ -81,13 +80,13 @@ class Courses extends CI_Controller
             $course_desc = $this->input->post('course_desc', true);
             $alias = url_title(strtolower($title));
             $data = array(
-            'course_alias'=> $alias ,
-            'course_title' => $title,
-            'course_description' => $course_desc,
-            'course_is_published'=> 1,
-            'course_is_deleted'=>0,
-            'course_created_at' => date('Y-m-d H:i:s'),
-            'course_updated_at' => date('Y-m-d H:i:s'),
+                'course_alias'=> $alias ,
+                'course_title' => $title,
+                'course_description' => $course_desc,
+                'course_is_published'=> 1,
+                'course_is_deleted'=>0,
+                'course_created_at' => date('Y-m-d H:i:s'),
+                'course_updated_at' => date('Y-m-d H:i:s'),
             );
             $insert_id = $this->usermodel->saveCourse($data);
             if ($insert_id) {
@@ -115,30 +114,69 @@ class Courses extends CI_Controller
         return hash('SHA512', ($salt.'GPIO'.$salt1));
     }
 
+    /**
+     * this function add course enrollment for a user
+     * @param $course_id
+     * @return
+     * for success:true
+     * for failure:false
+     */
+    public function addEnrollment($course_id=null)
+    {
+        if(isset($course_id)) {
+            $user_id = $this->session->userdata("USER_ID");
+
+            $entryExists= $this->coursemodel->isEnrollmentEntryExists($user_id, $course_id);
+
+            if ($entryExists)# if entry already exists in db then we can set to 1 always
+            {
+
+                $result = $this->coursemodel->setEnrollment($user_id, $course_id);
+
+            } else { # if entry not exists then we have to insert
+                $data = [
+                    'user_id' => $user_id,
+                    'course_id' => $course_id,
+                    'enrollment_date' => date('Y-m-d H:i:s'),
+                    'is_enrolled' => 1
+                ];
+                $this->coursemodel->insertEnrollment($data);
+            }
+        }
+         redirect("/courses");
+    }
+    public function removeEnrollment($course_id=null){
+        if(isset($course_id)){
+            $user_id = $this->session->userdata("USER_ID");
+            $this->coursemodel->unsetEnrollment($user_id,$course_id);
+        }
+        redirect("/courses");
+    }
+
 
     public function view()
     {
-      $this->load->view('site/header', $this->header_data);
-      $course_id = $this->uri->segment(3);
+        $this->load->view('site/header', $this->header_data);
+        $course_id = $this->uri->segment(3);
 
-      $data['course_data'] = $this->coursemodel->getCourseById($course_id);
-      $data['study_material'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['STUDY']);
-      $data['assignments'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['ASSIGNMENT']);
-      $data['syllabus'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['SYLLABUS']);
+        $data['course_data'] = $this->coursemodel->getCourseById($course_id);
+        $data['study_material'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['STUDY']);
+        $data['assignments'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['ASSIGNMENT']);
+        $data['syllabus'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['SYLLABUS']);
 
-      if (!$this->loggedIn) {
-        $this->load->view('courses/course_detail_view', $data);
-      }else{
-        $user = $this->session->userdata('USER_ID');
-        $user_ = $user+20000;
-        $this->load->helper('string');
-        $token = $this->generateToken($user);
-        $save =  $this->restmodel->saveToken($user, $token);
-      // redirect("http://upload.grabpustak.com/cp?auth=$token.'&'.$user");
+        if (!$this->loggedIn) {
+            $this->load->view('courses/course_detail_view', $data);
+        }else{
+            $user = $this->session->userdata('USER_ID');
+            $user_ = $user+20000;
+            $this->load->helper('string');
+            $token = $this->generateToken($user);
+            $save =  $this->restmodel->saveToken($user, $token);
+            // redirect("http://upload.grabpustak.com/cp?auth=$token.'&'.$user");
 
-        $data['upload_url'] = "http://gpapi/cp/upload_book?auth=$token&user=$user_&course=$course_id";
-        $this->load->view('courses/course_detail_edit', $data);
-      }
+            $data['upload_url'] = "http://gpapi/cp/upload_book?auth=$token&user=$user_&course=$course_id";
+            $this->load->view('courses/course_detail_edit', $data);
+        }
         $this->load->view('site/footer');
     }
 

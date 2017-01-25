@@ -817,7 +817,7 @@
                             $name = explode(' ', $name);
                             $first_name = $name[0];
                             $last_name = $name[2];
-                            echo validation_errors();
+                            echo validation_errors("<div class='alert alert-dismissable alert-danger'>","</div>");
                             if(empty($user_info))
                                 $user_data = false;
                             else $user_data = true;
@@ -895,7 +895,7 @@
                             </form>
                         </div>
                         <div id="tab_3-3" class="tab-pane">
-                            <?php echo validation_errors();?>
+                            <?php echo validation_errors("<div class='alert alert-dismissable alert-danger'>","</div>"); ?>
                             <div class="container" >
                                 <div class="row">
                                     <form  action="/user/change_password#tab_3-3" method="post">
