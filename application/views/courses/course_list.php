@@ -4,6 +4,7 @@
         <div class="row">
 
             <!-- Sidebar -->
+            <a href="/user/test">invoke</a>
             <div class="col-lg-3 col-md-3 col-sidebar">
 
                 <!-- Block  Breadcrumb-->
@@ -140,16 +141,18 @@
                           <div class="post-content-wrap">se-Id
                               <h2 class="mdl-card__title-text mdl-card__title-content"><a href="/courses/view/<?php echo $value['course_id']; ?>/<?php echo $value['course_alias']; ?>"><?php echo $value['course_title']; ?></a></h2>
                           <?php
-
+                          $logged_in=$this->session->userdata("USER_ID");
+                               if(isset($logged_in)){
 
                                if($enrolled_array && in_array($value['course_id'],$enrolled_array)){
                                    echo "<div class='label label-success'>enrolled</div>";
 
                                }
-                                 else{
-                                    
+                                 else {
+
                                      echo "<div class='label label-warning'>not enrolled</div>";
 
+                                 }
                                  }
                            ?>
 

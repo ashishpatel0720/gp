@@ -16,6 +16,12 @@
         <p>
           <?php echo $course_data['course_description'];?>
         </p>
+        <?php
+        if$
+        $course_id=$course_data['course_id'];
+        $user_id=$this->session->userdata("USER_ID");
+        $is_enrolled=$this->coursemodel->isEnrolled($user_id,$course_id);
+        ?>
         <!-- <ul class="list-inline">
             <li>
                 <i class="fa fa-map-marker"></i> India </li>

@@ -38,6 +38,7 @@ class Courses extends CI_Controller
     public function index()
     {
 
+
         $this->header_data['page_title'] = "Course List | Grabpustak";
         $this->header_data['meta_title'] = "Course List | Grabpustak ";
         $this->header_data['description']="Grabpustak is the online repository for books. Which contains the large variety of children, college books and large dataset of the nobels.";
@@ -60,7 +61,8 @@ class Courses extends CI_Controller
         $course_data['vard'] = $config["num_links"];
 
         $course_data['courses'] = $this->coursemodel->getCoursesByLimit($config["per_page"], $start);
-        #author - ashish patel 
+        #author - ashish patel
+        if($this->loggedIn)
         $course_data['enrolled_array']=$this->coursemodel->getEnrolledCourses($this->session->userdata("USER_ID"));
         ########
         $this->load->view('site/header', $this->header_data);
@@ -169,9 +171,13 @@ class Courses extends CI_Controller
         $data['assignments'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['ASSIGNMENT']);
         $data['syllabus'] = $this->coursemodel->getMaterialByIdType($course_id,$this->config->item('material_type')['SYLLABUS']);
 
-        if (!$this->loggedIn) {
-            $this->load->view('courses/course_detail_view', $data);
-        }else{
+        if ( !$this->loggedIn)
+        {
+            $data['logged_in']=false;
+        }
+        else
+        {
+            $data['logged_in']=true;
             $user = $this->session->userdata('USER_ID');
             $user_ = $user+20000;
             $this->load->helper('string');
@@ -180,8 +186,8 @@ class Courses extends CI_Controller
             // redirect("http://upload.grabpustak.com/cp?auth=$token.'&'.$user");
 
             $data['upload_url'] = "http://gpapi/cp/upload_book?auth=$token&user=$user_&course=$course_id";
-            $this->load->view('courses/course_detail_edit', $data);
         }
+        $this->load->view('courses/course_detail_edit', $data);
         $this->load->view('site/footer');
     }
 

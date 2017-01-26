@@ -70,6 +70,28 @@ class User extends CI_Controller {
 		$salt1 = strrev(md5($password));
 		return (hash('SHA256', ($salt . md5($salt1 . base64_encode($password)) . '==""==""=54')));
 	}
+
+	public function test()
+	{
+		$host=$_SERVER['HTTP_HOST'];
+		preg_match('@^(?:http://)?([^/]+)@i',$host, $matches);
+		$scrapped_host = $matches[1];   # second string so that we do not confuse with http:// https
+
+		echo "$host  and $scrapped_host <BR>";
+		if(isset($_SERVER['HTTP_REFERER'])){
+		$referer=$_SERVER['HTTP_REFERER'];
+		}
+		else exit;
+
+		echo $host." ".$scrapped_host."<BR>";
+
+		preg_match('@^(?:http://)?([^/]+)@i',$referer, $matches);
+		$scrapped_referer = $matches[1];   # second string so that we do not confuse with http:// https
+		echo $scrapped_host." ".$scrapped_referer."<BR>";
+
+
+
+	}
 	public function login()
 	{
 		// $this->output->set_output(json_encode(array('dfd' => 'arivi')));
@@ -86,9 +108,45 @@ class User extends CI_Controller {
 			if ($this->form_validation->run() == TRUE)
 			{
 				$userdata = $this->usermodel->login(strtolower($_POST['email']), $this->user_password_hash($_POST['password']));
-				if($userdata){
+				if($userdata) {
+					#setting session information
 					$this->session->set_userdata($userdata);
-					redirect('/user/dashboard');
+
+					//code for return to referer after login
+					if (!isset($_SERVER['HTTP_REFERER'])) # there is no referer
+				{
+                          echo "referer is not set";
+					exit;
+						redirect('/user/dashboard');
+				}
+					$host=$_SERVER['HTTP_HOST'];
+			        $referer=$_SERVER['HTTP_REFERER'];
+					//echo $host." ".$referer."<BR>";
+					//exit;
+
+
+					preg_match('@^(?:http://)?([^/]+)@i',$host, $matches);
+					$scrapped_host = $matches[1];   # second string so that we do not confuse with http:// https
+
+					preg_match('@^(?:http://)?([^/]+)@i',$referer, $matches);
+					$scrapped_referer = $matches[1];   # second string so that we do not confuse with http:// https
+//					echo $scrapped_host." ".$scrapped_referer."<BR>";
+
+					if($scrapped_host!=$scrapped_referer)
+					{
+						echo "$scrapped_host != $scrapped_referer <br>";
+						exit;
+						redirect('/user/dashboard');
+					}
+
+                    else{
+						echo "$scrapped_host == $scrapped_referer <br>";
+					    echo "referer : $referer";
+							exit;
+
+						redirect($referer);
+
+					}
 				}else{
 					$this->load->view('site/header',$this->header_data);
 					$this->load->view('user/login',$data);

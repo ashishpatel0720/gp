@@ -126,7 +126,6 @@ class CourseModel extends CI_Model {
 		$sql="update courses set enrollments=enrollments+1 where course_id=?";
 		$this->db->query($sql,array($data['course_id']));
 		return $this->db->insert('enrollments',$data);
-
 	}
 
 	public function setEnrollment($user_id,$course_id)
