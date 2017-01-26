@@ -62,7 +62,6 @@ class Courses extends CI_Controller
         $course_data['courses'] = $this->coursemodel->getCoursesByLimit($config["per_page"], $start);
         #author - ashish patel 
         $course_data['enrolled_array']=$this->coursemodel->getEnrolledCourses($this->session->userdata("USER_ID"));
-
         ########
         $this->load->view('site/header', $this->header_data);
         $this->load->view('courses/course_list', $course_data);
@@ -123,6 +122,9 @@ class Courses extends CI_Controller
      */
     public function addEnrollment($course_id=null)
     {
+        if(!$this->loggedIn){
+            redirect('/user/login','refresh');
+        }
         if(isset($course_id)) {
             $user_id = $this->session->userdata("USER_ID");
 
@@ -134,7 +136,7 @@ class Courses extends CI_Controller
                 $result = $this->coursemodel->setEnrollment($user_id, $course_id);
 
             } else { # if entry not exists then we have to insert
-                $data = [
+                $data =[
                     'user_id' => $user_id,
                     'course_id' => $course_id,
                     'enrollment_date' => date('Y-m-d H:i:s'),
@@ -143,14 +145,17 @@ class Courses extends CI_Controller
                 $this->coursemodel->insertEnrollment($data);
             }
         }
-         redirect("/courses");
+        redirect("/courses/view/$course_id");
     }
     public function removeEnrollment($course_id=null){
+        if(!$this->loggedIn){
+            redirect('/user/login','refresh');
+        }
         if(isset($course_id)){
             $user_id = $this->session->userdata("USER_ID");
             $this->coursemodel->unsetEnrollment($user_id,$course_id);
         }
-        redirect("/courses");
+        redirect("/courses/view/$course_id");
     }
 
 

@@ -143,12 +143,12 @@
 
 
                                if($enrolled_array && in_array($value['course_id'],$enrolled_array)){
-                                   echo " <a href='#'><div class='label label-success'>enrolled</div></a>";
+                                   echo "<div class='label label-success'>enrolled</div>";
 
                                }
                                  else{
                                     
-                                     echo "<a href='#'><div class='label label-info'>enroll now</div></a>";
+                                     echo "<div class='label label-warning'>not enrolled</div>";
 
                                  }
                            ?>

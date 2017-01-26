@@ -122,7 +122,11 @@ class CourseModel extends CI_Model {
 	 */
 	public function insertEnrollment($data)
 	{
+		#updating enrollments in courses table
+		$sql="update courses set enrollments=enrollments+1 where course_id=?";
+		$this->db->query($sql,array($data['course_id']));
 		return $this->db->insert('enrollments',$data);
+
 	}
 
 	public function setEnrollment($user_id,$course_id)
@@ -145,12 +149,29 @@ class CourseModel extends CI_Model {
 	 */
 	public function isEnrollmentEntryExists($user_id,$course_id)
 	{
-		$sql="select enrollment_id from enrollments where user_id=? and course_id=?";
+		$sql="select enrollment_id,is_enrolled from enrollments where user_id=? and course_id=?";
 		$query=$this->db->query($sql,[$user_id, $course_id]);
 		if($query->num_rows()==1)  # if entry exists in db
-			return true;
+			return $query->row_array();
 		else
 			return false;
 	}
+
+	/**
+	 * this function return  true or false according to existance of a an enrollment for a user
+	 * @param $user_id
+	 * @param $course_id
+	 * @return bool
+	 *
+	 */
+	public function isEnrolled($user_id,$course_id)
+	{
+		$isEntryExist=$this->isEnrollmentEntryExists($user_id,$course_id);
+      if($isEntryExist!=false && $isEntryExist['is_enrolled']==1)# is entry exist and if 'is_enrolled' is 1
+		  return true;
+      else
+		  return false;
+	}
+
 
 }

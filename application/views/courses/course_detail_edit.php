@@ -41,9 +41,30 @@ $(document).ready(function() {
         <!-- Page Content -->
   <div id="page-content-wrapper">
 
-
+      <?php
+      $course_id=$course_data['course_id'];
+      $user_id=$this->session->userdata("USER_ID");
+      $is_enrolled=$this->coursemodel->isEnrolled($user_id,$course_id);
+      ?>
     <div class="col-md-12 profile-info">
-        <h1 class="sbold uppercase"><?php echo $course_data['course_title'];?> </h1>
+        <h1 class="sbold uppercase"><?php echo $course_data['course_title'];?>
+        </h1>
+
+            <?php
+            if($is_enrolled){
+                echo "<span class=\"label label-success \" style='font-size:1em'>enrolled</span>";echo "&nbsp&nbsp";
+                echo "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+
+                echo "<a class='btn btn-danger btn-xsmall' href='/courses/removeenrollment/$course_id'>Remove Enrollment</a>";
+            }else{
+                echo "<span class=\"label label-warning\" style='font-size:1em'>not enrolled</span>";echo "&nbsp&nbsp";
+
+                echo "<a class='btn btn-success' href='/courses/addenrollment/$course_id' >Add Enrollment</a>";
+            }
+
+            ?>
+
+
         <p>
           <?php echo $course_data['course_description'];?>
         </p>

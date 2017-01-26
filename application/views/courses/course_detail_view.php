@@ -11,7 +11,8 @@
 
 
     <div class="col-md-12 profile-info">
-        <h1 class="sbold uppercase"><?php echo $course_data['course_title'];?> </h1>
+        <h1 class="sbold uppercase"><?php echo $course_data['course_title'];?>
+        </h1>
         <p>
           <?php echo $course_data['course_description'];?>
         </p>
