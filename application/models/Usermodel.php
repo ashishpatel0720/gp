@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class UserModel extends CI_Model {
+class UserModel extends CI_Model { 
     public function __construct()
     {
         parent::__construct();
@@ -51,6 +51,7 @@ class UserModel extends CI_Model {
         if($this->db->insert('users', $data))   return $this->db->insert_id();
         return false;
     }
+  # soem comment
 
     public function saveCourse($data){
         if($this->db->insert('courses', $data))
