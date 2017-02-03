@@ -37,7 +37,7 @@
 </style>
 <main class="site-main">
     <div id="wrapper">
-        <?php $this->view('site/sidebar'); ?>
+        <?php //$this->view('site/sidebar'); ?>
         <!-- Page Content -->
         <div id="page-content-wrapper">
 
@@ -48,7 +48,8 @@
                 $user_id = $this->session->userdata("USER_ID");
                 $is_enrolled = $this->coursemodel->isEnrolled($user_id, $course_id);
             }?>
-            <div class="col-md-12 profile-info">
+<div class="col-md-8">
+            <div class="col-md-12 profile-info" style="margin-top: 2em">
                 <div class="sbold uppercase"><span style='font-size:3em'><?php echo $course_data['course_title'];?></span>
 
                     <?php
@@ -92,7 +93,7 @@
                 <hr>
             </div>
 
-            <div class="profile-content">
+            <div class="profile-content col-md-12">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="portlet light bordered">
@@ -330,9 +331,46 @@
                     </div>
                 </div>
             </div>
+           
         </div>
+         <div class="col-md-4" > 
+       <div class="row">
+                            <div class="col-md-12 profile-info">
+                                <h2 >Suggested Course</h2>
+
+                                <ul><li>
+                                        <p>course 1</p>
+                                    </li>
+                                    <hr>
+                                    <li>
+                                        <p>course 2</p>
+                                    </li>
+                                    <hr>
+                                    <li>
+                                        <p>course 3</p>
+                                    </li>
+
+                                    <hr>
+<li>
+                                        <p>course 1</p>
+                                    </li>
+                                    <hr>
+                                    <li>
+                                        <p>course 2</p>
+                                    </li>
+                                    <hr>
+                                    <li>
+                                        <p>course 3</p>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <!--end col-md-8-->
+
+                        </div>
     </div>
-</main>
+    </div>
+</div>
 
 
 <div id="assignment_modal" class="modal fade" role="dialog" aria-labelledby="assignmentModal" aria-hidden="true">
@@ -371,9 +409,9 @@
             </div>
         </div>
     </div>
-</div>
 
 
+</main>
 
 
 <div id="syllabus_modal" class="modal fade" role="dialog" aria-labelledby="syllabusModal" aria-hidden="true">
@@ -446,4 +484,6 @@
             </div>
         </div>
     </div>
+</div>
+
 </div>

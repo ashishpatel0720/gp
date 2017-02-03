@@ -262,7 +262,8 @@ class User extends CI_Controller {
 				array('required'=>'Password is required','min_length'=>'Password must be of Minimum 6 Digits','alpha_numeric'=>'Password should contain only alphabet and numbers'));
 			$this->form_validation->set_rules('password2', 'Password Confirmation', 'trim|required|matches[password1]|min_length[6]',array('required'=>'Password Confirmation is required','min_length'=>'Password must be of Minimum 6 Digits','alpha_numeric'=>'Password should contain only alphabet and numbers'));
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email',array('required'=>'Email is required'));
-			if ($this->form_validation->run() == TRUE){
+		 
+		 		if ($this->form_validation->run() == TRUE){
 
 				$fname = $this->input->post('fname', TRUE);
 				$mname = $this->input->post('mname', TRUE);
@@ -501,5 +502,20 @@ class User extends CI_Controller {
 		redirect('/','refresh');
 	}
 
+	public function profile($user_username){
+		$user=$this->usermodel->getUserByUserName($user_username);
+		$this->load->view('site/header',$this->header_data);
+		if($user){
+			$user_info=$this->usermodel->getUserInfo($user['user_id']);
+			//	var_dump($user_info);
+			$data['user_info'] = $user_info;//data from user_information table
+			$data['user']=$user;//data from users table
+			$this->load->view('user/profile',$data);
+		}else{
+			$this->load->view("errors/html/error_user_not_found",$user['user_username']);
+		}
+	
+		$this->load->view('site/footer');
+	}
 
 }

@@ -51,7 +51,37 @@ class UserModel extends CI_Model {
         if($this->db->insert('users', $data))   return $this->db->insert_id();
         return false;
     }
-  # soem comment
+
+    /**
+     * this function will return id of a user using its username
+     * @param $user_username
+     * @return bool
+     */
+    public function getUserByUserName($user_username){
+        $this->db->select('user_id,user_username,user_name,user_email,user_roles');
+        $this->db->from('users');
+        $this->db->where('user_username',$user_username);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if ($query->num_rows() == 1)
+        {
+            return $query->row_array();
+        }
+        return false;
+    }
+    public function getUserByUserId($user_id){
+        $this->db->select('user_id,user_username,user_name,user_email,user_roles');
+        $this->db->from('users');
+        $this->db->where('user_id',$user_id);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if ($query->num_rows() == 1)
+        {
+            return $query->row_array();
+        }
+        return false;
+    }
+
 
     public function saveCourse($data){
         if($this->db->insert('courses', $data))
@@ -89,5 +119,18 @@ class UserModel extends CI_Model {
           return $this->db->set('user_password',$new_password)
                      ->where('user_id',$user_id)
                      ->update('users');
+    }
+    public function getUserRole($user_id){
+       // $user=$this->usermodel->getUserByUserId($this->session->userdata['USER_ID']);
+        $query=$this->db->select("user_roles")
+            ->from('users')
+            ->where('user_id',$user_id)
+            ->limit(1)->get();
+
+        if($query->num_rows()==1){
+            $user_role=$query->row_array()['user_roles'];
+            return $user_role;  
+        }
+        return false;
     }
 }

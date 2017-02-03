@@ -129,7 +129,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/user/profile">Profile</a>
+                    <a href="/user">Profile</a>
                 </li>
                 <li>
                     <a href="/courses/my_courses">Courses</a>

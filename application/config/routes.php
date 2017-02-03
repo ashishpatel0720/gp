@@ -7,7 +7,14 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['cp'] = 'cp/index';
 $route['user'] = 'user/dashboard';
-$route['user/profile'] = 'user/dashboard';
+
+#added by ashish for viewing profile of other user
+#regex for a username - must start with letter and can have letter and digit only
+
+$route['user/([a-z]\w+)']='user/profile/$1';
+
+
+
 // $route['admin/:any'] = 'admin/$1';
 $route['browse'] = 'books/search';
 $route['books'] = 'books/search';
