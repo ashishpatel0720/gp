@@ -13,17 +13,11 @@
     <script type="text/javascript" src="<?php echo $this->config->item('site_url'); ?>static/site/js/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/site/datatables/media/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/site/datatables/extensions/Buttons/css/buttons.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/site/mdl/material.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/site/mdl/material.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/site/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/site/css/courses.css">
 
-
-    <?php if(isset($reader) && !empty($reader)): ?>
-    <!-- CSS : implied media="all" -->
-    <link rel="stylesheet" href="<?php echo $this->config->item('site_url'); ?>static/reader/css/reader_style.css">
-    <link rel="stylesheet" href="<?php echo $this->config->item('site_url'); ?>static/reader/css/wow_book.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('site_url'); ?>static/reader/css/preview.css">
-
-    <link rel="stylesheet" media="handheld" href="<?php echo $this->config->item('site_url'); ?>static/reader/css/handheld.css?v=2">
-
-    <?php endif; ?>
 </head>
 
 <body class="<?php if(isset($page_type) && !empty($page_type)) echo $page_type; ?>">
@@ -79,7 +73,14 @@
 
                         <div class="col-md-4 col-lg-3  nav-right">
 
-                            <a href="/user" class="link-login"><span>My Account</span></a>
+                            <a href="/user" class="link-login"><span>
+                                <?php 
+                                if($this->session->userdata('USER_NAME'))
+                                  echo $this->session->userdata('USER_NAME');
+                                else
+                                    echo "My Account";
+                                ?>
+                                </span></a>
                             <!-- <a href="/favorites" class="link-favorites"><span>Favorites</span></a> -->
                         </div>
                     </div>
@@ -141,7 +142,7 @@
                                     <a href="/">Home   </a>
                                 </li>
                                 <li>
-                                    <a href="http://point.grabpustak.in">Grabpoint</a>
+                                  <a href="/courses">Courses</a>
                                 </li>
                                 <li>
                                     <a href="/books">Books</a>

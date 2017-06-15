@@ -1,5 +1,5 @@
-
-
+<script type="javascript" src="/static/site/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+<link rel="stylesheet" href="/static/site/jasny-bootstrap/css/jasny-bootstrap.min.css">
 <style media="screen">
     .profile,.profile-classic .profile-image {
         position: relative
@@ -736,6 +736,23 @@
 <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script> -->
 <!-- <script src="/static/site/datatable/extensions/Scroller/js/dataTables.scroller.min.js" charset="utf-8"></script> -->
 <script src="/static/site/js/jquery.slimscroll.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#tabs a").click(function(e){
+            e.preventDefault();
+            $(this).tab('show');
+            $('html,body').scrollTop(10);
+        });
+        $("#tabs > li > a").on("shown.bs.tab", function(e) {
+            e.preventDefault();
+            var id = $(e.target).attr("href").substr(1);
+            window.location.hash = id;
+            $('html,body').scrollTop(10);
+        });
+        var hash = window.location.hash;
+        $('#tabs  a[href="' + hash + '"]').tab('show');
+    });
+</script>
 
 <script type="text/javascript">
     $( document ).ready(function() {
@@ -768,11 +785,10 @@
         <?php $this->view('site/sidebar'); ?>
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <?php # if($flag) echo "SUCESS";else echo "FAILUREL"?>
-            <br>
+
             <div class="row profile-account">
                 <div class="col-md-3">
-                    <ul class="ver-inline-menu tabbable margin-bottom-10">
+                    <ul class="ver-inline-menu tabbable margin-bottom-10" id="tabs">
                         <li class="active">
                             <a data-toggle="tab" href="#tab_1-1">
                                 <i class="fa fa-cog"></i> Personal info </a>
@@ -780,15 +796,15 @@
                         </li>
                         <li>
                             <a data-toggle="tab" href="#tab_2-2">
-                                <i class="fa fa-picture-o"></i> Change Avatar </a>
+                                <i class="fa fa-picture-o"></i>Avatar</a>
                         </li>
                         <li>
                             <a data-toggle="tab" href="#tab_3-3">
-                                <i class="fa fa-lock"></i> Change Password </a>
+                                <i class="fa fa-lock"></i>Password</a>
                         </li>
                         <li>
                             <a data-toggle="tab" href="#tab_4-4">
-                                <i class="fa fa-eye"></i> Privacy Settings </a>
+                                <i class="fa fa-eye"></i>Privacy</a>
                         </li>
                     </ul>
                 </div>
@@ -796,84 +812,57 @@
                     <div class="tab-content">
                         <div id="tab_1-1" class="tab-pane active">
                             <?php
-                            if($validation_error){            
-                                 echo "<p>Please use following instructions to update your account!</p>";
-                                         echo validation_errors(); 
-                                         
-                            }elseif($update_flag==false){
-                                echo "<p>Sorry! we have some database Error!! Try again!!</p>";
-                            }
-                            else
-                                   echo "<p>Your data update successfully!!</p>";
+                            echo $this->session->flashdata('account_msg');
+                            $name = $this->session->userdata('USER_NAME');
+                            $name = explode(' ', $name);
+                            $first_name = $name[0];
+                            $last_name = $name[2];
+                            echo validation_errors("<div class='alert alert-dismissable alert-danger'>","</div>");
+                            if(empty($user_info))
+                                $user_data = false;
+                            else $user_data = true;
                             ?>
                             <form role="form" method="post" action="/user/account_settings">
                                 <div class="form-group">
                                     <label class="control-label">First Name</label>
-                                    <input type="text" placeholder="John" class="form-control" readonly value=
-                                    "<?php
-                                    if($this->session->userdata('USER_NAME')!=null) {
-                                        $fullname = explode(" ", $this->session->userdata('USER_NAME'));
-                                        echo $fullname[0];
-                                    }
-                                    ?>">
+                                    <input type="text" placeholder="John" class="form-control" readonly value="<?php
+                                    echo $first_name;   ?>">
                                 </div>
                                 <div class="form-group">
 
                                     <label class="control-label">Last Name</label>
                                     <input type="text" readonly placeholder="Doe" class="form-control" value=
-                                    "<?php
-                                    if($this->session->userdata('USER_NAME')!=null) {
-                                        $fullname = explode(" ", $this->session->userdata('USER_NAME'));
-                                        echo $fullname[2];
-                                    }
-                                    ?>">
+                                    "<?php echo $last_name; ?>">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Email
-                                        <?php
-
-
-                                        if($this->session->userdata('USER_VERIFIED')!=0)
-                                            echo "<span style='color:green; font-weight:lighter;'>(varified)</span>";
-                                        else echo "<span style='color:red; font-weight:lighter '>(not varified)</span>";?>
                                     </label>
-                                    <input type="text" placeholder="user@example.com" class="form-control" readonly value=
-                                    "<?php
-                                    if($this->session->userdata('USER_MAIL')!=null) {
-                                        echo $this->session->userdata('USER_MAIL');
-                                    }
-                                    ?>">
+                                    <input type="text" placeholder="Enter email" class="form-control" readonly value="<?php echo $this->session->userdata('USER_MAIL'); ?>">
                                 </div>
-
                                 <div class="form-group">
                                     <label class="control-label">Mobile Number</label>
-                                     <span style="color:green;"> &nbsp;(+91) </span><input type="text" placeholder="9876543210" name='user_phone'class="form-control"value=
-                                    "<?php if($this->session->userdata('USER_PHONE')!=null)
-                                        echo $this->session->userdata('USER_PHONE');
-                                    ?>"> </div>
+                                    <span style="color:green;"> (+91) </span><input type="text" placeholder="Mob. No." name='user_phone'class="form-control"value="<?php if($user_data) echo $user_info['user_phone'];  ?>"> </div>
                                 <div class="form-group">
                                     <label class="control-label">Interests</label>
-                                    <input type="text" placeholder="Design, Web etc." name='user_interests' class="form-control" value=
-                                    "<?php if($this->session->userdata('USER_INTERESTS')!=null)
-                                        echo $this->session->userdata('USER_INTERESETS');
+                                    <input type="text" placeholder="Design, Web etc." name='user_interests' class="form-control" value="<?php if($user_data)  echo $user_info['user_interests']; ?>"> </div>
+                                <div class="form-group">
+                                    <label class="control-label">Website</label>
+                                    <input type="text" name='user_website' placeholder="example.com" class="form-control"value="<?php if($user_data)
+                                        echo $user_info['user_website'];
                                     ?>"> </div>
-
                                 <div class="form-group">
                                     <label class="control-label">Twitter</label>
-                                    <input type="text" name='user_twitter_id' placeholder="grabpustak for http://www.twitter.com/grabpustak" class="form-control"value=
-                                    "<?php if($this->session->userdata('USER_TWITTER_ID')!=null)
-                                        echo $this->session->userdata('USER_TWITTER_ID');
-                                    ?>"> </div>
+                                    <input type="text" name='user_twitter_id' placeholder="Twitter user ID" class="form-control"value=
+                                    "<?php if($user_data)   echo $user_info['user_twitter_id'];   ?>"> </div>
                                 <div class="form-group">
                                     <label class="control-label">Facebook</label>
-                                    <input type="text" name='user_facebook_id' placeholder="grabpustak for http://www.facebook.com/grabpustak" class="form-control"value=
-                                    "<?php if($this->session->userdata('USER_FACEBOOK_ID')!=null)
-                                        echo $this->session->userdata('USER_FACEBOOK_ID');
-                                    ?>"> </div>
+                                    <input type="text" name='user_facebook_id' placeholder="Facebook username" class="form-control"value=
+                                    "<?php if($user_data)   echo $user_info['user_facebook_id'];   ?>">
+                                </div>
 
-                                <div class="margiv-top-10">
-                                    <input type="submit" class="btn btn-primary"> &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="/user" class="btn btn-default"> Cancel </a>
+                                <div class="margin-top-10">
+                                    <input type="submit" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="/user" class="btn btn-danger"> Cancel </a>
                                 </div>
                             </form>
                         </div>
@@ -906,22 +895,22 @@
                             </form>
                         </div>
                         <div id="tab_3-3" class="tab-pane">
-                            <div class="container">
+                            <?php echo validation_errors("<div class='alert alert-dismissable alert-danger'>","</div>"); ?>
+                            <div class="container" >
                                 <div class="row">
-
-                                    <form action="#">
+                                    <form  action="/user/change_password#tab_3-3" method="post">
                                         <div class="form-group">
                                             <label class="control-label">Current Password</label>
-                                            <input type="password" class="form-control"> </div>
+                                            <input type="password" class="form-control" name="current_password"> </div>
                                         <div class="form-group">
                                             <label class="control-label">New Password</label>
-                                            <input type="password" class="form-control"> </div>
+                                            <input type="password" class="form-control"name="new_password_1"> </div>
                                         <div class="form-group">
                                             <label class="control-label">Re-type New Password</label>
-                                            <input type="password" class="form-control"> </div>
+                                            <input type="password" class="form-control" name="new_password_2"> </div>
                                         <div class="margin-top-10">
-                                            <a href="javascript:;" class="btn btn-primary"> Change Password </a>
-                                            <a href="javascript:;" class="btn btn-danger"> Cancel </a>
+                                            <input type="submit" class="btn btn-primary">
+                                            <a href="/user/dashboard" class="btn btn-danger"> Cancel </a>
                                         </div>
                                     </form>
                                 </div>

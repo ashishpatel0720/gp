@@ -1,25 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class UserModel extends CI_Model {
+class UserModel extends CI_Model { 
     public function __construct()
     {
         parent::__construct();
 
     }
     // users
-    public function getUser($email,$password)
-    {
-        $this->db->select('*');
-        $this->db->from('authors');
-        $this->db->where('a_email',$alias);
-        $this->db->limit(1);
-        $query = $this->db->get();
-        return $query->result_array();
-    }
+
     public function login($email, $password)
     {
         $this->db->where("user_email", $email);
-        //$this->db->where("user_password", $password);
+        $this->db->where("user_password", $password);
         // $this->db->where("user_verified", 1);
         $query = $this->db->get("users");
         $userdata = array();
@@ -37,28 +29,9 @@ class UserModel extends CI_Model {
                     'USER_VERIFIED' => $rows->user_verified,
                 );
            }
+           return $userdata;
          }
-     else return false;
-    # adding from user_informationt table
-    #table has been modified accordingly
-        $this->db->where("user_id", $userdata['USER_ID']);
-     
-        $query = $this->db->get("user_information");
-        if ($query->num_rows() == 1)
-        {
-            foreach ($query->result() as $rows)
-            {
-                //add all data to session
-               
-                  $userdata ['USER_TWITTER_ID'] = $rows->user_twitter_id;
-                  $userdata ['USER_FACEBOOK_ID'] = $rows->user_facebook_id;
-                  $userdata ['USER_INTERESTS'] = $rows->user_interests;
-                  $userdata ['USER_PHONE'] = $rows->user_phone;
-                  $userdata ['USER_WEBSITE'] = $rows->user_website;
-           }
-          return $userdata;
-        }
-        return false;
+     return false;
     }
 
     public function getUserInfo($user_id)
@@ -68,14 +41,47 @@ class UserModel extends CI_Model {
         $this->db->where('user_id',$user_id);
         $this->db->limit(1);
         $query = $this->db->get();
-        return $query->result_array();
+        if ($query->num_rows() == 1)
+        {
+        return $query->row_array();
+        }
+      return false;
     }
-    public function savePublisher($data){
-     
-        if(($this->db->insert('users', $data))&& $this->db->insert('user_information',array('user_id'=>$this->db->insert_id())))
-            return $this->db->insert_id();
-         else return false;
+    public function saveUser($data){
+        if($this->db->insert('users', $data))   return $this->db->insert_id();
+        return false;
     }
+
+    /**
+     * this function will return id of a user using its username
+     * @param $user_username
+     * @return bool
+     */
+    public function getUserByUserName($user_username){
+        $this->db->select('user_id,user_username,user_name,user_email,user_roles');
+        $this->db->from('users');
+        $this->db->where('user_username',$user_username);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if ($query->num_rows() == 1)
+        {
+            return $query->row_array();
+        }
+        return false;
+    }
+    public function getUserByUserId($user_id){
+        $this->db->select('user_id,user_username,user_name,user_email,user_roles');
+        $this->db->from('users');
+        $this->db->where('user_id',$user_id);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if ($query->num_rows() == 1)
+        {
+            return $query->row_array();
+        }
+        return false;
+    }
+
 
     public function saveCourse($data){
         if($this->db->insert('courses', $data))
@@ -85,7 +91,7 @@ class UserModel extends CI_Model {
     public function saveAccountSettings($data){
         if($this->db->insert('user_information', $data))
             return $this->db->insert_id();
-        
+
         else return false;
     }
 
@@ -97,5 +103,34 @@ class UserModel extends CI_Model {
         else return false;
     }
 
+    public function getCurrentPassword($user_id)
+    {
 
+        $query = $this->db->select('user_password')
+            ->where('user_id',$user_id)
+            ->get('users');
+
+        $user_data = $query->row_array();
+        return $user_data;
+    }
+
+    public function  updatePassword($new_password,$user_id)
+    {
+          return $this->db->set('user_password',$new_password)
+                     ->where('user_id',$user_id)
+                     ->update('users');
+    }
+    public function getUserRole($user_id){
+       // $user=$this->usermodel->getUserByUserId($this->session->userdata['USER_ID']);
+        $query=$this->db->select("user_roles")
+            ->from('users')
+            ->where('user_id',$user_id)
+            ->limit(1)->get();
+
+        if($query->num_rows()==1){
+            $user_role=$query->row_array()['user_roles'];
+            return $user_role;  
+        }
+        return false;
+    }
 }

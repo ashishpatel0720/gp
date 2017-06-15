@@ -394,3 +394,7 @@ $config['routes'] = array('base' => array('controller'=>'base','routes'=>array('
 	'courses' => array('controller'=>'courses','routes'=>array('create_course'=>'create_course','my)courses'=>'my_courses')),
 	'reader' => array('controller'=>'reader','routes'=>array('reader_image'=>'reader','reader_html'=>'reader_html'))
 	);
+
+
+	$config['material_type'] = array('STUDY'=>1,'ASSIGNMENT'=>2,'SYLLABUS'=>3);
+	$config['material_status'] = array('ACTIVE','EXPIRED');

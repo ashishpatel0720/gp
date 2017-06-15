@@ -716,11 +716,10 @@ else
                             <!-- SIDEBAR USER TITLE -->
                             <div class="profile-usertitle">
                                 <div class="profile-usertitle-name">
-                                    <?php echo $this->session->userdata('USER_NAME'); ?>
+                                    <?php echo $user['user_name'] ?>
                                 </div>
                                 <div class="profile-usertitle-job">
                                     <?php
-                                    $user=$this->usermodel->getUserByUserId($this->session->userdata['USER_ID']);
                                     if($user['user_roles']==1)
                                         echo    "Student";
                                     else echo "Teacher";
@@ -765,14 +764,6 @@ else
                                     ?>
 
                                 </div>
-
-
-                                <div class="margin-top-20 profile-desc-link">
-                                    <i class="fa fa-edit"></i>
-                                    <a href="/user/account_settings">
-                                        <span style="color:#FF7E00"> Edit Your Account</span>
-                                    </a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -780,7 +771,11 @@ else
                     <div class="col-md-6 col-lg-6 profile-content" style="margin-left:0em;margin-right:1em;">
                         <div class="row">
                             <div class="col-md-12 profile-info">
-                                <h1 class="sbold uppercase">About Me</h1>
+                                <h1 class="sbold uppercase">
+                                    <?php
+                                     echo "About ".$user['user_name'];
+                                    ?>
+                                </h1>
                                 <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt laoreet dolore magna aliquam tincidunt erat volutpat laoreet dolore magna aliquam tincidunt erat volutpat.
                                 </p>
                                 <hr>

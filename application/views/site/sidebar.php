@@ -129,10 +129,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/user/profile">Profile</a>
+                    <a href="/user">Profile</a>
                 </li>
                 <li>
                     <a href="/courses/my_courses">Courses</a>
+                </li>
+                <li>
+                    <a href="/courses/create_course">Add new course</a>
                 </li>
                 <li>
                     <a href="/user/statistics">Statistics</a>
@@ -143,6 +146,10 @@
                 <li>
                     <a href="/contact">Contact</a>
                 </li>
+                <li>
+                    <a href="/user/logout">Log out</a>
+                </li>
+                
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
